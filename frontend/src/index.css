@@ -1,0 +1,105 @@
+/**
+ * Main CSS File
+ * Imports Tailwind and custom styles
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+@layer base {
+  body {
+    @apply bg-bg text-text font-sans antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold;
+  }
+
+  /* Custom scrollbar for webkit browsers */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-bg-muted;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-light;
+  }
+}
+
+/* Component utilities */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 bg-primary text-white rounded-lg font-medium 
+           hover:bg-primary-dark transition-all duration-200 
+           hover:shadow-medium active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-bg-muted text-text rounded-lg font-medium 
+           hover:bg-border transition-all duration-200 
+           hover:shadow-soft active:scale-95;
+  }
+
+  .btn-outline {
+    @apply px-6 py-3 border-2 border-primary text-primary rounded-lg font-medium 
+           hover:bg-primary hover:text-white transition-all duration-200 
+           active:scale-95;
+  }
+
+  .card {
+    @apply bg-white rounded-xl shadow-soft border border-border 
+           hover:shadow-medium transition-all duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 border border-border rounded-lg 
+           focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent 
+           transition-all duration-200;
+  }
+
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .page-padding {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+}
+
+/* Dark mode styles */
+.dark {
+  @apply bg-bg-dark text-white;
+}
+
+.dark .card {
+  @apply bg-gray-800 border-border-dark;
+}
+
+.dark .input-field {
+  @apply bg-gray-800 border-border-dark text-white;
+}
+
+/* Animations */
+@layer utilities {
+  .animate-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animate-delay-300 {
+    animation-delay: 300ms;
+  }
+}
