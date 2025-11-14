@@ -97,7 +97,10 @@ const AdminLayout = ({ children }) => {
         variants={sidebarVariants}
         initial={isMobile ? 'closed' : 'open'}
         animate={sidebarOpen ? 'open' : 'closed'}
-        className="fixed lg:static top-20 left-0 h-[calc(100vh-5rem)] w-64 bg-gradient-to-b from-[#11152B] to-[#0B0E1C] border-r border-[rgba(168,85,247,0.1)] z-50 overflow-y-auto flex flex-col"
+        className="fixed lg:static top-20 left-0 h-[calc(100vh-5rem)] w-64 bg-gradient-to-b from-[#11152B] to-[#0B0E1C] border-r border-[rgba(168,85,247,0.1)] z-50 overflow-hidden flex flex-col"
+        style={{
+          scrollbarWidth: 'none',
+        }}
       >
         {/* Close Button for Mobile */}
         {isMobile && (
@@ -128,7 +131,7 @@ const AdminLayout = ({ children }) => {
         </div>
 
         {/* Navigation Menu */}
-        <nav className="flex-1 p-4 space-y-2">
+        <nav className="flex-1 p-4 space-y-2 overflow-hidden">
           {menuItems.map((item, index) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.href;

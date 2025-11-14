@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, Briefcase, Edit, Trash2, X, Save, Building2, DollarSign, MapPin, Target, Award, Code } from 'lucide-react';
+import { Plus, Briefcase, Edit, Trash2, X, Save, Building2, DollarSign, MapPin, Target, Award, Code, Users } from 'lucide-react';
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import { useAuth } from '../contexts/AuthContext';
@@ -156,6 +156,17 @@ const AdminPanel = () => {
       e.preventDefault();
       addSkill();
     }
+  };
+
+  // Count applicants for a specific job
+  const countApplicants = (job) => {
+    let count = 0;
+    for (const key in job) {
+      if (key.startsWith('Applicant_')) {
+        count++;
+      }
+    }
+    return count;
   };
 
   const handleSubmit = async (e) => {
@@ -523,7 +534,7 @@ const AdminPanel = () => {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex-1">
                     <h3 className="text-2xl font-bold glow-text mb-2">{job.title}</h3>
-                    <div className="flex items-center gap-4 text-muted text-sm">
+                    <div className="flex items-center gap-4 text-muted text-sm flex-wrap">
                       <span className="flex items-center gap-1">
                         <Building2 size={16} />
                         {job.company}
@@ -535,6 +546,10 @@ const AdminPanel = () => {
                       <span className="flex items-center gap-1">
                         <DollarSign size={16} />
                         ৳{job.salary}
+                      </span>
+                      <span className="flex items-center gap-1 px-3 py-1 bg-blue-500/20 text-blue-400 rounded-full">
+                        <Users size={16} />
+                        {countApplicants(job)} Applicants
                       </span>
                     </div>
                   </div>
