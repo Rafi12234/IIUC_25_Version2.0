@@ -285,6 +285,25 @@ const Jobs = () => {
             ))}
           </div>
         )}
+
+        {/* Job Market Insights Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 text-center"
+        >
+          <a
+            href="/job-market-insights"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold rounded-lg transition-all hover:shadow-lg hover:shadow-purple-500/50"
+          >
+            <TrendingUp size={24} />
+            <span>View Bangladesh Job Market Insights 2025</span>
+          </a>
+          <p className="text-muted text-sm mt-3">
+            Explore employment rates, industry growth, top jobs, and sector opportunities
+          </p>
+        </motion.div>
       </div>
     </div>
   );

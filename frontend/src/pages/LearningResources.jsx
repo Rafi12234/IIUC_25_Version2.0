@@ -11,7 +11,8 @@ import {
   ExternalLink,
   Filter,
   Loader,
-  AlertCircle
+  AlertCircle,
+  Sparkles
 } from 'lucide-react';
 
 const LearningResources = () => {
