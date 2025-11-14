@@ -1,28 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Search, BookOpen, Users, Clock, CheckCircle, AlertCircle, X } from 'lucide-react';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
-
-// Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyC8za3ZI4m9gUrYsueUum907vpuKzV8H0Q",
-  authDomain: "iiuc25.firebaseapp.com",
-  projectId: "iiuc25",
-  storageBucket: "iiuc25.firebasestorage.app",
-  messagingSenderId: "75690391713",
-  appId: "1:75690391713:web:4c72c5316547c8bc68d8e0",
-  measurementId: "G-82V42TWJ9J"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+import React, { useState, useEffect } from 'react';
+import { Search, BookOpen, Users, CheckCircle, AlertCircle, X } from 'lucide-react';
+import { collection, getDocs, doc, updateDoc, getDoc } from 'firebase/firestore';
+import { onAuthStateChanged } from 'firebase/auth';
+import { db, auth } from '../firebase';
 
 const CourseResources = () => {
   const [courses, setCourses] = useState([]);
@@ -36,175 +16,6 @@ const CourseResources = () => {
   const [unenrollingCourseId, setUnenrollingCourseId] = useState(null);
   const [notification, setNotification] = useState(null);
   const [enrolledCourses, setEnrolledCourses] = useState(new Set());
-  
-  // Refs for GSAP animations
-  const headerRef = useRef(null);
-  const iconRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const cardRefs = useRef([]);
-
-  // GSAP 3D Header Animation
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Animate icon with 3D rotation
-      gsap.from(iconRef.current, {
-        duration: 1.5,
-        rotationY: -180,
-        rotationX: 20,
-        scale: 0,
-        opacity: 0,
-        ease: "elastic.out(1, 0.5)",
-        transformPerspective: 1000,
-        transformOrigin: "center center"
-      });
-
-      // Animate title with 3D effect
-      gsap.from(titleRef.current, {
-        duration: 1.2,
-        y: -50,
-        rotationX: -90,
-        opacity: 0,
-        scale: 0.5,
-        ease: "back.out(1.7)",
-        delay: 0.3,
-        transformPerspective: 1000,
-        transformOrigin: "center bottom"
-      });
-
-      // Animate subtitle with 3D sliding effect
-      gsap.from(subtitleRef.current, {
-        duration: 1,
-        z: -200,
-        opacity: 0,
-        scale: 0.8,
-        ease: "power3.out",
-        delay: 0.6,
-        transformPerspective: 1000
-      });
-
-      // Continuous floating animation for icon
-      gsap.to(iconRef.current, {
-        y: -15,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut"
-      });
-
-      // Subtle 3D tilt animation on mouse move
-      const handleMouseMove = (e) => {
-        const { clientX, clientY } = e;
-        const { innerWidth, innerHeight } = window;
-        
-        const xPos = (clientX / innerWidth - 0.5) * 20;
-        const yPos = (clientY / innerHeight - 0.5) * 20;
-        
-        gsap.to(headerRef.current, {
-          rotationY: xPos,
-          rotationX: -yPos,
-          duration: 0.5,
-          ease: "power2.out",
-          transformPerspective: 1000
-        });
-      };
-
-      window.addEventListener('mousemove', handleMouseMove);
-      
-      return () => {
-        window.removeEventListener('mousemove', handleMouseMove);
-      };
-    });
-
-    return () => ctx.revert();
-  }, []);
-
-  // GSAP 3D Grid Animation
-  useEffect(() => {
-    if (cardRefs.current.length > 0) {
-      const ctx = gsap.context(() => {
-        cardRefs.current.forEach((card, index) => {
-          if (card) {
-            // Initial 3D entrance animation
-            gsap.from(card, {
-              duration: 0.8,
-              opacity: 0,
-              scale: 0.5,
-              rotationY: -90,
-              z: -200,
-              ease: "back.out(1.7)",
-              delay: index * 0.1,
-              transformPerspective: 1000,
-              transformOrigin: "center center",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-                toggleActions: "play none none none"
-              }
-            });
-
-            // 3D hover effect
-            const handleMouseEnter = (e) => {
-              gsap.to(card, {
-                duration: 0.4,
-                scale: 1.05,
-                z: 50,
-                rotationX: 5,
-                rotationY: 5,
-                ease: "power2.out",
-                transformPerspective: 1000,
-                boxShadow: "0 20px 60px rgba(168, 85, 247, 0.4)"
-              });
-            };
-
-            const handleMouseMove = (e) => {
-              const rect = card.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-              const centerX = rect.width / 2;
-              const centerY = rect.height / 2;
-              
-              const rotateX = (y - centerY) / 10;
-              const rotateY = (centerX - x) / 10;
-
-              gsap.to(card, {
-                duration: 0.3,
-                rotationX: rotateX,
-                rotationY: rotateY,
-                ease: "power2.out",
-                transformPerspective: 1000
-              });
-            };
-
-            const handleMouseLeave = () => {
-              gsap.to(card, {
-                duration: 0.4,
-                scale: 1,
-                z: 0,
-                rotationX: 0,
-                rotationY: 0,
-                ease: "power2.out",
-                transformPerspective: 1000,
-                boxShadow: "0 10px 30px rgba(0, 0, 0, 0.2)"
-              });
-            };
-
-            card.addEventListener('mouseenter', handleMouseEnter);
-            card.addEventListener('mousemove', handleMouseMove);
-            card.addEventListener('mouseleave', handleMouseLeave);
-
-            return () => {
-              card.removeEventListener('mouseenter', handleMouseEnter);
-              card.removeEventListener('mousemove', handleMouseMove);
-              card.removeEventListener('mouseleave', handleMouseLeave);
-            };
-          }
-        });
-      });
-
-      return () => ctx.revert();
-    }
-  }, [filteredCourses]);
 
   // Monitor authentication state
   useEffect(() => {
@@ -219,13 +30,24 @@ const CourseResources = () => {
     const loadCourses = async () => {
       try {
         setLoading(true);
+        console.log('📚 Loading courses from Firestore...');
         const coursesRef = collection(db, 'Courses');
         const snapshot = await getDocs(coursesRef);
+        
+        console.log('✅ Found', snapshot.size, 'courses');
+        
+        if (snapshot.empty) {
+          console.warn('⚠️ Courses collection is empty');
+          setCourses([]);
+          setLoading(false);
+          return;
+        }
         
         const coursesData = [];
         const userEnrolledCourses = new Set();
         
         snapshot.forEach((doc) => {
+          console.log('📖 Processing course:', doc.id);
           const data = doc.data();
           const courseData = {
             id: doc.id,
@@ -249,11 +71,12 @@ const CourseResources = () => {
           coursesData.push(courseData);
         });
 
+        console.log('✨ Courses loaded:', coursesData.length);
         setCourses(coursesData);
         setEnrolledCourses(userEnrolledCourses);
       } catch (error) {
-        console.error('Error loading courses:', error);
-        showNotification('Failed to load courses. Please try again.', 'error');
+        console.error('❌ Error loading courses:', error);
+        showNotification('Failed to load courses. Check console for details.', 'error');
       } finally {
         setLoading(false);
       }
@@ -422,25 +245,17 @@ const CourseResources = () => {
       )}
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white py-20 px-4 overflow-hidden" style={{ perspective: '1000px' }}>
-        <div className="max-w-7xl mx-auto">
-          <div ref={headerRef} className="text-center" style={{ transformStyle: 'preserve-3d' }}>
-            <div ref={iconRef} style={{ transformStyle: 'preserve-3d' }}>
-              <BookOpen size={72} className="mx-auto mb-6 drop-shadow-lg" />
-            </div>
-            <h1 ref={titleRef} className="text-6xl font-bold mb-6 drop-shadow-lg" style={{textShadow: '0 4px 20px rgba(0,0,0,0.4)', transformStyle: 'preserve-3d'}}>
-              Course Resources
-            </h1>
-            <p ref={subtitleRef} className="text-2xl font-medium drop-shadow-md" style={{textShadow: '0 2px 10px rgba(0,0,0,0.3)', transformStyle: 'preserve-3d'}}>
-              Explore our comprehensive collection of courses and start learning today
-            </p>
-          </div>
+      <div className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white py-20 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <BookOpen size={64} className="mx-auto mb-6" />
+          <h1 className="text-5xl font-bold mb-4">Course Resources</h1>
+          <p className="text-lg opacity-90">Explore our comprehensive collection of courses and start learning today</p>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Search Bar */}
-        <div className="mb-8 animate-slide-up">
+        <div className="mb-8">
           <div className="relative max-w-2xl mx-auto">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
@@ -455,7 +270,7 @@ const CourseResources = () => {
 
         {/* User Status */}
         {currentUser && (
-          <div className="mb-6 text-center animate-fade-in">
+          <div className="mb-6 text-center">
             <p className="text-sm text-muted">
               Signed in as: <span className="font-semibold text-primary">{currentUser.email}</span>
             </p>
@@ -471,14 +286,19 @@ const CourseResources = () => {
         ) : (
           <>
             {/* Courses Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" style={{ perspective: '1000px' }}>
-              {filteredCourses.map((course, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredCourses.map((course) => (
                 <div
                   key={course.id}
-                  ref={(el) => (cardRefs.current[index] = el)}
-                  className="neon-card overflow-hidden transition-all duration-300"
-                  style={{ transformStyle: 'preserve-3d' }}
+                  className="neon-card overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 group"
+                  style={{
+                    boxShadow: 'inset 0 0 20px rgba(168, 85, 247, 0.1)',
+                  }}
                 >
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{
+                    boxShadow: 'inset 0 0 30px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.3)',
+                    zIndex: -1
+                  }} />
                   {/* Course Image */}
                   <div className="relative h-48 overflow-hidden">
                     <img
@@ -731,6 +551,19 @@ const CourseResources = () => {
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
+        }
+
+        @keyframes neon-glow {
+          0%, 100% {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.2);
+          }
+          50% {
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6), 0 0 60px rgba(168, 85, 247, 0.4);
+          }
+        }
+
+        .neon-card:hover {
+          animation: neon-glow 2s ease-in-out infinite;
         }
       `}</style>
     </div>
