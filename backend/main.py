@@ -12,15 +12,16 @@ load_dotenv()
 # Initialize FastAPI app
 app = FastAPI()
 
-# Configure CORS
+# Configure CORS middleware FIRST (before routes)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
+        "http://localhost:5174",
     ],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -46,6 +47,10 @@ class ChatResponse(BaseModel):
 @app.get("/")
 async def root():
     return {"message": "Gemini Chatbot API is running"}
+
+@app.options("/chat")
+async def options_chat():
+    return {"message": "OK"}
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest):
