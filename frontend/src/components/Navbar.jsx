@@ -38,6 +38,7 @@ const Navbar = () => {
     { name: 'Jobs', href: '/jobs' },
     { name: 'Resources', href: '/resources' },
     { name: 'AI Assistance', href: '/chatassistance' },
+    { name: 'CV Upload', href: '/cv-upload' },
     { name: 'Career Roadmap', href: '/career-roadmap' },
     { name: 'Contact', href: '/contact' },
   ];

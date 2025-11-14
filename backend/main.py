@@ -1,10 +1,12 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Literal
 from dotenv import load_dotenv
 import os
 from google import genai
+from io import BytesIO
+from PyPDF2 import PdfReader
 
 # Load environment variables
 load_dotenv()
@@ -19,6 +21,7 @@ app.add_middleware(
         "http://localhost:5173",
         "http://localhost:3000",
         "http://localhost:5174",
+        "http://localhost:5175",
     ],
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
@@ -92,6 +95,73 @@ async def chat(req: ChatRequest):
     
     except Exception as e:
         error_message = f"Error talking to Gemini: {str(e)}"
+        raise HTTPException(status_code=500, detail=error_message)
+
+@app.options("/summarize-cv")
+async def options_summarize_cv():
+    return {"message": "OK"}
+
+@app.post("/summarize-cv")
+async def summarize_cv(file: UploadFile = File(...)):
+    try:
+        # Validate file type
+        if not file.content_type or not file.content_type.startswith("application/pdf"):
+            raise HTTPException(status_code=400, detail="Please upload a PDF file.")
+        
+        # Read file content
+        content = await file.read()
+        
+        # Extract text from PDF
+        pdf_file = BytesIO(content)
+        reader = PdfReader(pdf_file)
+        full_text = ""
+        
+        for page in reader.pages:
+            page_text = page.extract_text()
+            if page_text:
+                full_text += page_text + "\n"
+        
+        # Check if text was extracted
+        if not full_text.strip():
+            raise HTTPException(status_code=400, detail="No text found in PDF.")
+        
+        # Call Gemini to analyze the CV
+        prompt = (
+            "You are an expert CV analyzer. "
+            "Summarize the key skills, experience, and strengths from this CV. "
+            "Provide a comprehensive analysis including:\n"
+            "1. Professional Summary\n"
+            "2. Key Skills\n"
+            "3. Work Experience Highlights\n"
+            "4. Education\n"
+            "5. Notable Achievements\n\n"
+            "CV Content:\n\n" + full_text
+        )
+        
+        response = client.models.generate_content(
+            model=MODEL_NAME,
+            contents=prompt,
+        )
+        
+        # Extract summary text from response
+        summary = ""
+        if response.candidates and len(response.candidates) > 0:
+            candidate = response.candidates[0]
+            if candidate.content and candidate.content.parts:
+                summary = "".join(part.text for part in candidate.content.parts if hasattr(part, 'text'))
+        
+        if not summary:
+            summary = "Unable to generate summary. Please try again."
+        
+        return {
+            "summary": summary,
+            "raw_text": full_text
+        }
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        error_message = f"Error processing CV: {str(e)}"
         raise HTTPException(status_code=500, detail=error_message)
 
 if __name__ == "__main__":
