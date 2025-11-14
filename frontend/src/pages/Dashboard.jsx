@@ -13,7 +13,6 @@ const Dashboard = () => {
   const [recommendedCourses, setRecommendedCourses] = useState([]);
   const [appliedJobs, setAppliedJobs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [recommendations] = useState({ jobs: [], resources: [] });
   const [profileCompletion, setProfileCompletion] = useState(0);
   const [userProfile, setUserProfile] = useState(null);
   const [skillGapResources, setSkillGapResources] = useState([]);
@@ -343,8 +342,8 @@ const Dashboard = () => {
           />
           <StatCard 
             icon={Briefcase} 
-            label="Matched Jobs" 
-            value={recommendations.jobs.length} 
+            label="Applied Jobs" 
+            value={appliedJobs.length} 
             color="bg-gradient-to-br from-[#D500F9] to-[#A855F7]" 
           />
           <StatCard 
@@ -552,12 +551,6 @@ const Dashboard = () => {
                 </div>
               )}
             </>
-          ) : recommendations.resources.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recommendations.resources.slice(0, 3).map((resource) => (
-                <ResourceCard key={resource._id} resource={resource} />
-              ))}
-            </div>
           ) : (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -565,7 +558,7 @@ const Dashboard = () => {
               className="neon-card p-12 text-center"
             >
               <BookOpen className="mx-auto text-muted mb-4" size={64} />
-              <p className="text-muted">No resource recommendations available</p>
+              <p className="text-muted">Complete your profile to get personalized learning recommendations</p>
             </motion.div>
           )}
         </section>
@@ -741,33 +734,6 @@ const JobCard = ({ job }) => (
       </div>
     )}
   </div>
-);
-
-// Resource Card Component
-const ResourceCard = ({ resource }) => (
-  <a
-    href={resource.url}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="neon-card p-6 hover:shadow-xl transition-all hover:-translate-y-1 block"
-  >
-    <div className="flex items-start justify-between mb-3">
-      <h3 className="font-semibold mb-1 text-main">{resource.title}</h3>
-      <span className={`px-2 py-1 text-xs font-medium rounded ${
-        resource.cost === 'Free' 
-          ? 'bg-[rgba(168,85,247,0.1)] text-primary' 
-          : 'bg-[rgba(213,0,249,0.1)] text-accent-pink'
-      }`}>
-        {resource.cost}
-      </span>
-    </div>
-    <p className="text-sm text-muted mb-3">{resource.platform}</p>
-    {resource.matchReason && (
-      <div className="text-xs text-primary bg-[rgba(168,85,247,0.1)] px-3 py-2 rounded-lg">
-        {resource.matchReason}
-      </div>
-    )}
-  </a>
 );
 
 // Skill Gap Resource Card Component
