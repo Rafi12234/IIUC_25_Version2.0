@@ -88,3 +88,7 @@ async def chat(req: ChatRequest):
     except Exception as e:
         error_message = f"Error talking to Gemini: {str(e)}"
         raise HTTPException(status_code=500, detail=error_message)
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
