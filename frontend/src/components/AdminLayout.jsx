@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, Menu, X, LogOut, Settings, LayoutDashboard, Home } from 'lucide-react';
+import { Briefcase, Menu, X, LogOut, Settings, LayoutDashboard } from 'lucide-react';
 import { getAuth, signOut } from 'firebase/auth';
 import toast from 'react-hot-toast';
 
@@ -51,6 +51,12 @@ const AdminLayout = ({ children }) => {
       name: 'Jobs Management',
       icon: Briefcase,
       href: '/admin/jobs',
+      badge: null
+    },
+    {
+      name: 'Courses',
+      icon: Briefcase,
+      href: '/admin/courses',
       badge: null
     },
     {
@@ -159,22 +165,6 @@ const AdminLayout = ({ children }) => {
 
         {/* Bottom Section */}
         <div className="p-4 border-t border-[rgba(168,85,247,0.1)] space-y-2">
-          {/* Home Link */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <Link
-              to="/"
-              onClick={() => isMobile && setSidebarOpen(false)}
-              className="flex items-center space-x-3 px-4 py-3 rounded-lg font-medium text-muted hover:text-primary hover:bg-[rgba(168,85,247,0.06)] transition-all duration-200 group"
-            >
-              <Home size={20} className="text-primary group-hover:text-primary" />
-              <span>Back to Home</span>
-            </Link>
-          </motion.div>
-
           {/* Logout Button */}
           <motion.button
             initial={{ opacity: 0, x: -20 }}
