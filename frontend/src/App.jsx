@@ -3,7 +3,7 @@
  * Main application with routing and layout
  */
 import React from 'react';
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider, useAuth } from './contexts/AuthContext';
@@ -35,11 +35,7 @@ import AdminCourses from "./pages/AdminCourses";
 
 function AppContent() {
   const location = useLocation();
-  const { currentUser } = useAuth();
   const isAdminRoute = location.pathname.startsWith('/admin');
-
-  // Check if current user is admin
-  const isAdmin = currentUser?.email === 'admin@gmail.com';
 
   return (
     <div className="App">

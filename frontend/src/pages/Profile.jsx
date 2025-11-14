@@ -7,12 +7,12 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Mail, Edit, Save, X, GraduationCap, Briefcase, Target, AlertCircle, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { userService, applicationsService } from '../services/firestoreService';
+import { applicationsService } from '../services/firestoreService';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import toast from 'react-hot-toast';
 import { CAREER_TRACKS, EXPERIENCE_LEVELS, LOCATIONS } from '../constants/jobConstants';
-import { searchSkills, SKILL_CATEGORIES, getSkillsByCategory } from '../constants/skillsDictionary';
+import { searchSkills } from '../constants/skillsDictionary';
 import ProfilePDFDownload from '../components/ProfilePDFDownload';
 
 const Profile = () => {
@@ -70,9 +70,15 @@ const Profile = () => {
       // Calculate profile completion
       calculateCompletion(userData);
       
-      // Load applications
-      const applicationsData = await applicationsService.getUserApplications(currentUser.uid);
-      setApplications(applicationsData);
+      // Load applications - wrapped in try-catch to handle index errors
+      try {
+        const applicationsData = await applicationsService.getUserApplications(currentUser.uid);
+        setApplications(applicationsData);
+      } catch (appError) {
+        console.warn('Could not load applications (index may be needed):', appError.message);
+        // Continue without applications - don't show error to user
+        setApplications([]);
+      }
     } catch (error) {
       console.error('Error loading profile:', error);
       toast.error('Failed to load profile');

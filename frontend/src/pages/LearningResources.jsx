@@ -8,7 +8,6 @@ import { getLearningSuggestions } from '../utils/getLearningSuggestions';
 import { 
   BookOpen, 
   Search, 
-  Sparkles,
   ExternalLink,
   Filter,
   Loader,
