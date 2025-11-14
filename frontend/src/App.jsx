@@ -26,6 +26,7 @@ import Signup from "./pages/Signup";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Dashboard from "./pages/Dashboard";
+import ChatBot from "./pages/ChatBot";
 
 function AppContent() {
   const location = useLocation();
@@ -51,6 +52,7 @@ function AppContent() {
             <Route path="/signup" element={<Register />} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+            <Route path="/chatbot" element={<ProtectedRoute><ChatBot /></ProtectedRoute>} />
           </Routes>
         </AnimatePresence>
       </div>
