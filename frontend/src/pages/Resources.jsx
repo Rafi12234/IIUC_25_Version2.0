@@ -163,13 +163,13 @@ const CourseResources = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-base">
       {/* Notification */}
       {notification && (
         <div className="fixed top-4 right-4 z-50 animate-slide-in">
           <div className={`flex items-center gap-3 px-6 py-4 rounded-lg shadow-lg ${
             notification.type === 'success' 
-              ? 'bg-green-500 text-white' 
+              ? 'bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white' 
               : 'bg-red-500 text-white'
           }`}>
             {notification.type === 'success' ? (
@@ -183,11 +183,11 @@ const CourseResources = () => {
       )}
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16 px-4">
+      <div className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center animate-fade-in">
             <BookOpen size={64} className="mx-auto mb-4 opacity-90" />
-            <h1 className="text-5xl font-bold mb-4">Course Resources</h1>
+            <h1 className="text-5xl font-bold mb-4 glow-text">Course Resources</h1>
             <p className="text-xl opacity-90">
               Explore our comprehensive collection of courses and start learning today
             </p>
@@ -205,7 +205,7 @@ const CourseResources = () => {
               placeholder="Search courses by name or description..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-2xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all shadow-sm"
+              className="input-field pl-12"
             />
           </div>
         </div>
@@ -213,8 +213,8 @@ const CourseResources = () => {
         {/* User Status */}
         {currentUser && (
           <div className="mb-6 text-center animate-fade-in">
-            <p className="text-sm text-gray-600">
-              Signed in as: <span className="font-semibold text-blue-600">{currentUser.email}</span>
+            <p className="text-sm text-muted">
+              Signed in as: <span className="font-semibold text-primary">{currentUser.email}</span>
             </p>
           </div>
         )}
@@ -223,7 +223,7 @@ const CourseResources = () => {
         {loading ? (
           <div className="text-center py-20">
             <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent mx-auto mb-4"></div>
-            <p className="text-gray-600 text-lg font-medium">Loading courses...</p>
+            <p className="text-muted text-lg font-medium">Loading courses...</p>
           </div>
         ) : (
           <>
@@ -232,7 +232,7 @@ const CourseResources = () => {
               {filteredCourses.map((course, index) => (
                 <div
                   key={course.id}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in"
+                  className="neon-card overflow-hidden transition-all duration-300 transform hover:-translate-y-2 animate-fade-in"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Course Image */}
@@ -247,7 +247,7 @@ const CourseResources = () => {
                     />
                     <div className="absolute top-4 right-4">
                       {enrolledCourses.has(course.id) && (
-                        <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                        <span className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                           <CheckCircle size={14} />
                           Enrolled
                         </span>
@@ -261,12 +261,12 @@ const CourseResources = () => {
                       {course.name}
                     </h3>
                     
-                    <p className="text-gray-600 text-sm mb-4 line-clamp-3">
+                    <p className="text-muted text-sm mb-4 line-clamp-3">
                       {course.overview}
                     </p>
 
                     {/* Enrollment Count */}
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-4">
+                    <div className="flex items-center gap-2 text-sm text-muted mb-4">
                       <Users size={16} />
                       <span>{course.enrollments.length} student{course.enrollments.length !== 1 ? 's' : ''} enrolled</span>
                     </div>
@@ -275,7 +275,7 @@ const CourseResources = () => {
                     <div className="flex gap-3">
                       <button
                         onClick={() => setSelectedCourse(course)}
-                        className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-xl hover:bg-blue-700 transition-colors font-medium"
+                        className="flex-1 btn-outline-neon py-3 px-4 font-medium"
                       >
                         View Details
                       </button>
@@ -297,9 +297,9 @@ const CourseResources = () => {
             {/* No Results */}
             {filteredCourses.length === 0 && (
               <div className="text-center py-20">
-                <BookOpen size={64} className="mx-auto text-gray-300 mb-4" />
-                <p className="text-gray-600 text-xl">No courses found matching your search</p>
-                <p className="text-gray-400 mt-2">Try adjusting your search terms</p>
+                <BookOpen size={64} className="mx-auto text-muted mb-4" />
+                <p className="text-muted text-xl">No courses found matching your search</p>
+                <p className="text-muted mt-2">Try adjusting your search terms</p>
               </div>
             )}
           </>
@@ -309,7 +309,7 @@ const CourseResources = () => {
       {/* Course Detail Modal */}
       {selectedCourse && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-40 animate-fade-in">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in shadow-2xl">
+          <div className="neon-card rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scale-in shadow-2xl">
             {/* Modal Header */}
             <div className="relative h-64 overflow-hidden">
               <img
@@ -323,9 +323,9 @@ const CourseResources = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
               <button
                 onClick={() => setSelectedCourse(null)}
-                className="absolute top-4 right-4 bg-white rounded-full p-2 hover:bg-gray-100 transition-colors"
+                className="absolute top-4 right-4 bg-[rgba(255,255,255,0.1)] hover:bg-[rgba(255,255,255,0.2)] rounded-full p-2 transition-colors backdrop-blur"
               >
-                <X size={24} />
+                <X size={24} className="text-white" />
               </button>
               <h2 className="absolute bottom-6 left-6 text-4xl font-bold text-white">
                 {selectedCourse.name}
@@ -335,13 +335,13 @@ const CourseResources = () => {
             {/* Modal Content */}
             <div className="p-8">
               {/* Enrollment Status */}
-              <div className="flex items-center gap-4 mb-6 pb-6 border-b">
-                <div className="flex items-center gap-2 text-gray-600">
+              <div className="flex items-center gap-4 mb-6 pb-6 border-b border-[rgba(255,255,255,0.1)]">
+                <div className="flex items-center gap-2 text-muted">
                   <Users size={20} />
                   <span className="font-medium">{selectedCourse.enrollments.length} students enrolled</span>
                 </div>
                 {enrolledCourses.has(selectedCourse.id) && (
-                  <span className="bg-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2">
+                  <span className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2">
                     <CheckCircle size={16} />
                     You're enrolled
                   </span>
@@ -350,17 +350,17 @@ const CourseResources = () => {
 
               {/* Overview Section */}
               <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">Course Overview</h3>
-                <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                <h3 className="text-2xl font-bold mb-4 glow-text">Course Overview</h3>
+                <p className="text-muted leading-relaxed whitespace-pre-line">
                   {selectedCourse.overview}
                 </p>
               </div>
 
               {/* Outline Section */}
               <div className="mb-8">
-                <h3 className="text-2xl font-bold mb-4 text-gray-800">Course Outline</h3>
-                <div className="bg-gray-50 rounded-xl p-6">
-                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                <h3 className="text-2xl font-bold mb-4 glow-text">Course Outline</h3>
+                <div className="bg-[rgba(255,255,255,0.05)] rounded-xl p-6">
+                  <p className="text-muted leading-relaxed whitespace-pre-line">
                     {selectedCourse.outline}
                   </p>
                 </div>
@@ -370,7 +370,7 @@ const CourseResources = () => {
               <div className="flex gap-4">
                 <button
                   onClick={() => setSelectedCourse(null)}
-                  className="flex-1 bg-gray-200 text-gray-700 py-4 px-6 rounded-xl hover:bg-gray-300 transition-colors font-medium"
+                  className="flex-1 btn-outline-neon py-4 px-6"
                 >
                   Close
                 </button>

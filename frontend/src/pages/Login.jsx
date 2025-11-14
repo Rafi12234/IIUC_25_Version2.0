@@ -49,7 +49,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-bg-muted dark:bg-gray-900">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-base">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -58,12 +58,12 @@ const Login = () => {
       >
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="font-heading text-3xl font-bold mb-2">Welcome Back</h2>
-          <p className="text-text-muted">Log in to continue your career journey</p>
+          <h2 className="font-heading text-3xl font-bold mb-2 glow-text">Welcome Back</h2>
+          <p className="text-muted">Log in to continue your career journey</p>
         </div>
 
         {/* Login Form */}
-        <div className="card p-8">
+        <div className="neon-card p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email */}
             <div>
@@ -71,7 +71,7 @@ const Login = () => {
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={20} />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={20} />
                 <input
                   id="email"
                   name="email"
@@ -92,7 +92,7 @@ const Login = () => {
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted" size={20} />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted" size={20} />
                 <input
                   id="password"
                   name="password"
@@ -137,7 +137,7 @@ const Login = () => {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+              className="w-full flex items-center justify-center px-4 py-2 rounded-lg text-sm font-medium bg-section border border-[rgba(255,255,255,0.04)] hover:shadow-neon-glow"
             >
               <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
                 <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -151,7 +151,7 @@ const Login = () => {
 
           {/* Divider */}
           <div className="mt-6 text-center">
-            <p className="text-sm text-text-muted">
+            <p className="text-sm text-muted">
               Don't have an account?{' '}
               <Link to="/register" className="text-primary hover:text-primary-dark font-medium">
                 Sign up here
@@ -161,8 +161,8 @@ const Login = () => {
         </div>
 
         {/* Demo credentials info */}
-        <div className="mt-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
-          <p className="text-xs text-text-muted text-center">
+        <div className="mt-4 p-4 rounded-lg" style={{background: 'rgba(168,85,247,0.04)', border: '1px solid rgba(168,85,247,0.08)'}}>
+          <p className="text-xs text-muted text-center">
             <strong>Demo:</strong> Register a new account or use your credentials
           </p>
         </div>

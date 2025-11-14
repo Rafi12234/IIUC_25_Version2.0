@@ -77,9 +77,10 @@ const Navbar = () => {
       animate="animate"
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-lg py-2'
-          : 'bg-white/90 backdrop-blur-sm py-4'
+          ? 'bg-[#0B0E1C]/95 backdrop-blur-md shadow-neon-soft py-2'
+          : 'bg-[#0B0E1C]/90 backdrop-blur-sm py-4'
       }`}
+      style={{borderBottom: isScrolled ? '1px solid rgba(168,85,247,0.08)' : 'none'}}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
@@ -91,12 +92,12 @@ const Navbar = () => {
           >
             <Link to="/" className="flex items-center space-x-2 group">
               <div className="relative">
-                <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-green-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-emerald-200 transition-shadow duration-300">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-lg transition-shadow duration-300" style={{background:'linear-gradient(90deg,#6A00F5,#D500F9)',boxShadow:'0 0 20px rgba(168,85,247,0.08)'}}>
                   <span className="text-white font-bold text-lg">প</span>
                 </div>
-                <div className="absolute -inset-1 bg-gradient-to-r from-emerald-400 to-green-600 rounded-xl blur opacity-30 group-hover:opacity-60 transition-opacity"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r rounded-xl blur opacity-30 group-hover:opacity-60 transition-opacity" style={{background:'linear-gradient(90deg,#A855F7,#D500F9)'}}></div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent glow-text" style={{backgroundImage:'linear-gradient(90deg,#A855F7,#D500F9)'}}>
                 পথচলা
               </span>
             </Link>
@@ -110,24 +111,26 @@ const Navbar = () => {
                   to={link.href}
                   className={`cursor-hover relative px-4 py-2 rounded-lg font-medium transition-all duration-200 group ${
                     location.pathname === link.href
-                      ? 'text-emerald-600'
-                      : 'text-gray-700 hover:text-emerald-600'
+                      ? 'text-primary'
+                      : 'text-muted hover:text-primary'
                   }`}
                 >
                   <span className="relative z-10">{link.name}</span>
                   <div
-                    className={`absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-50 to-green-50 transition-all duration-200 ${
+                    className={`absolute inset-0 rounded-lg transition-all duration-200 ${
                       location.pathname === link.href
                         ? 'opacity-100 scale-100'
                         : 'opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100'
                     }`}
+                    style={{background: 'rgba(168,85,247,0.06)'}}
                   />
                   <div
-                    className={`absolute bottom-0 left-1/2 h-0.5 bg-gradient-to-r from-emerald-400 to-green-500 transition-all duration-200 ${
+                    className={`absolute bottom-0 left-1/2 h-0.5 transition-all duration-200 ${
                       location.pathname === link.href
                         ? 'w-3/4 -translate-x-1/2'
                         : 'w-0 -translate-x-1/2 group-hover:w-1/2'
                     }`}
+                    style={{background: 'linear-gradient(90deg,#A855F7,#D500F9)'}}
                   />
                 </Link>
               </motion.div>
@@ -139,17 +142,18 @@ const Navbar = () => {
                   to={link.href}
                   className={`cursor-hover relative px-4 py-2 rounded-lg font-medium transition-all duration-200 group ${
                     location.pathname === link.href
-                      ? 'text-emerald-600'
-                      : 'text-gray-700 hover:text-emerald-600'
+                      ? 'text-primary'
+                      : 'text-muted hover:text-primary'
                   }`}
                 >
                   <span className="relative z-10">{link.name}</span>
                   <div
-                    className={`absolute inset-0 rounded-lg bg-gradient-to-r from-emerald-50 to-green-50 transition-all duration-200 ${
+                    className={`absolute inset-0 rounded-lg transition-all duration-200 ${
                       location.pathname === link.href
                         ? 'opacity-100 scale-100'
                         : 'opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100'
                     }`}
+                    style={{background: 'rgba(168,85,247,0.06)'}}
                   />
                 </Link>
               </motion.div>
@@ -164,17 +168,18 @@ const Navbar = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowUserMenu(!showUserMenu)}
-                  className="flex items-center space-x-3 px-4 py-2 rounded-xl bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 hover:border-emerald-200 transition-all duration-200 shadow-sm hover:shadow-md"
+                  className="flex items-center space-x-3 px-4 py-2 rounded-xl border transition-all duration-200 shadow-sm hover:shadow-neon-glow"
+                  style={{background:'rgba(17,21,43,0.6)', borderColor:'rgba(168,85,247,0.12)'}}
                 >
-                  <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-green-600 rounded-full flex items-center justify-center shadow-sm">
+                  <div className="w-9 h-9 rounded-full flex items-center justify-center shadow-sm" style={{background:'linear-gradient(90deg,#A855F7,#D500F9)'}}>
                     <User size={18} className="text-white" />
                   </div>
                   <div className="text-left">
-                    <p className="font-medium text-gray-700 text-sm">
+                    <p className="font-medium text-sm" style={{color:'#FFFFFF'}}>
                       {currentUser.displayName?.split(' ')[0] || 'User'}
                     </p>
                   </div>
-                  <ChevronDown size={16} className={`text-gray-500 transition-transform duration-200 ${showUserMenu ? 'rotate-180' : ''}`} />
+                  <ChevronDown size={16} className={`text-muted transition-transform duration-200 ${showUserMenu ? 'rotate-180' : ''}`} />
                 </motion.button>
 
                 <AnimatePresence>
@@ -184,19 +189,20 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 10, scale: 0.95 }}
                       transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute right-0 mt-3 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-3 z-50"
+                      className="absolute right-0 mt-3 w-64 rounded-xl shadow-xl border py-3 z-50 neon-card"
+                      style={{background:'#11152B', borderColor:'rgba(168,85,247,0.12)'}}
                     >
                       {/* User Info Header */}
-                      <div className="px-4 py-3 border-b border-gray-100">
+                      <div className="px-4 py-3 border-b" style={{borderColor:'rgba(255,255,255,0.04)'}}>
                         <div className="flex items-center space-x-3">
-                          <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-green-600 rounded-full flex items-center justify-center shadow-sm">
+                          <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-sm" style={{background:'linear-gradient(90deg,#A855F7,#D500F9)'}}>
                             <User size={20} className="text-white" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className="text-sm font-semibold text-gray-900 truncate">
+                            <p className="text-sm font-semibold truncate" style={{color:'#FFFFFF'}}>
                               {currentUser.displayName || 'User Name'}
                             </p>
-                            <p className="text-xs text-gray-500 truncate">
+                            <p className="text-xs text-muted truncate">
                               {currentUser.email}
                             </p>
                           </div>
@@ -209,14 +215,14 @@ const Navbar = () => {
                         <Link
                           to="/profile"
                           onClick={() => setShowUserMenu(false)}
-                          className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 transition-all duration-150 group"
+                          className="flex items-center space-x-3 px-4 py-3 hover:bg-[rgba(168,85,247,0.06)] transition-all duration-150 group"
                         >
-                          <div className="w-8 h-8 bg-gray-100 group-hover:bg-emerald-100 rounded-lg flex items-center justify-center transition-colors duration-150">
-                            <User size={16} className="text-gray-600 group-hover:text-emerald-600" />
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-150" style={{background:'rgba(168,85,247,0.06)'}}>
+                            <User size={16} className="text-primary glow-icon" />
                           </div>
                           <div>
-                            <p className="text-sm font-medium">Profile</p>
-                            <p className="text-xs text-gray-500 group-hover:text-emerald-600">
+                            <p className="text-sm font-medium" style={{color:'#FFFFFF'}}>Profile</p>
+                            <p className="text-xs text-muted">
                               Manage your account
                             </p>
                           </div>
@@ -228,14 +234,14 @@ const Navbar = () => {
                             handleLogout();
                             setShowUserMenu(false);
                           }}
-                          className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-red-50 hover:text-red-700 transition-all duration-150 group"
+                          className="w-full flex items-center space-x-3 px-4 py-3 hover:bg-[rgba(239,68,68,0.06)] transition-all duration-150 group"
                         >
-                          <div className="w-8 h-8 bg-gray-100 group-hover:bg-red-100 rounded-lg flex items-center justify-center transition-colors duration-150">
-                            <LogOut size={16} className="text-gray-600 group-hover:text-red-600" />
+                          <div className="w-8 h-8 rounded-lg flex items-center justify-center transition-colors duration-150" style={{background:'rgba(239,68,68,0.06)'}}>
+                            <LogOut size={16} className="text-red-500" />
                           </div>
                           <div className="text-left">
-                            <p className="text-sm font-medium">Logout</p>
-                            <p className="text-xs text-gray-500 group-hover:text-red-600">
+                            <p className="text-sm font-medium" style={{color:'#FFFFFF'}}>Logout</p>
+                            <p className="text-xs text-muted">
                               Sign out of your account
                             </p>
                           </div>
@@ -258,7 +264,7 @@ const Navbar = () => {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     to="/login"
-                    className="px-4 py-2 font-medium text-gray-700 hover:text-emerald-600 transition-colors"
+                    className="px-4 py-2 font-medium text-muted hover:text-primary transition-colors"
                   >
                     Login
                   </Link>
@@ -266,10 +272,9 @@ const Navbar = () => {
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                   <Link
                     to="/register"
-                    className="cursor-hover relative px-6 py-2.5 font-medium text-white rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 transition-all duration-200 shadow-lg hover:shadow-emerald-200"
+                    className="cursor-hover relative px-6 py-2.5 font-medium text-white rounded-xl btn-primary"
                   >
                     <span className="relative z-10">Get Started</span>
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-emerald-400 to-green-500 blur opacity-30 group-hover:opacity-50 transition-opacity"></div>
                   </Link>
                 </motion.div>
               </div>
@@ -280,7 +285,7 @@ const Navbar = () => {
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-white hover:bg-[rgba(168,85,247,0.06)] transition-colors"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </motion.button>
@@ -310,16 +315,17 @@ const Navbar = () => {
                       onClick={() => setIsOpen(false)}
                       className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
                         location.pathname === link.href
-                          ? 'bg-gradient-to-r from-emerald-50 to-green-50 text-emerald-600 border-l-4 border-emerald-500'
-                          : 'text-gray-700 hover:bg-gray-50'
+                          ? 'text-primary border-l-4'
+                          : 'text-muted hover:bg-[rgba(168,85,247,0.06)]'
                       }`}
+                      style={location.pathname === link.href ? {background:'rgba(168,85,247,0.06)', borderColor:'#A855F7'} : {}}
                     >
                       {link.name}
                     </Link>
                   </motion.div>
                 ))}
 
-                <div className="pt-4 border-t border-gray-100">
+                <div className="pt-4 border-t" style={{borderColor:'rgba(255,255,255,0.04)'}}>
                   {currentUser ? (
                     <motion.button
                       variants={linkVariants}
@@ -330,7 +336,7 @@ const Navbar = () => {
                         handleLogout();
                         setIsOpen(false);
                       }}
-                      className="w-full flex items-center space-x-2 px-4 py-3 text-left text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                      className="w-full flex items-center space-x-2 px-4 py-3 text-left text-red-500 hover:bg-[rgba(239,68,68,0.06)] rounded-lg transition-colors"
                     >
                       <LogOut size={16} />
                       <span>Logout</span>
@@ -340,14 +346,14 @@ const Navbar = () => {
                       <Link
                         to="/login"
                         onClick={() => setIsOpen(false)}
-                        className="block px-4 py-3 text-center font-medium text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                        className="block px-4 py-3 text-center font-medium text-muted hover:bg-[rgba(168,85,247,0.06)] rounded-lg transition-colors"
                       >
                         Login
                       </Link>
                       <Link
                         to="/register"
                         onClick={() => setIsOpen(false)}
-                        className="block px-4 py-3 text-center font-medium text-white bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 rounded-lg transition-colors shadow-lg"
+                        className="block px-4 py-3 text-center font-medium text-white rounded-lg transition-colors shadow-lg btn-primary"
                       >
                         Get Started
                       </Link>

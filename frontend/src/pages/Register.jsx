@@ -234,9 +234,9 @@ const Register = () => {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-md w-full text-center"
         >
-          <div className="card p-8">
-            <h2 className="text-2xl font-bold mb-4">Already Logged In</h2>
-            <p className="text-gray-600 mb-6">
+          <div className="neon-card p-8">
+            <h2 className="text-2xl font-bold glow-text mb-4">Already Logged In</h2>
+            <p className="text-muted mb-6">
               You are already logged in as {currentUser.displayName || currentUser.email}
             </p>
             <div className="space-y-4">
@@ -258,7 +258,7 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-bg-muted dark:bg-gray-900">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-base">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -267,12 +267,12 @@ const Register = () => {
       >
         {/* Header */}
         <div className="text-center mb-8">
-          <h2 className="font-heading text-3xl font-bold mb-2">Start Your Journey</h2>
-          <p className="text-text-muted">Create your পথচলা account and discover opportunities</p>
+          <h2 className="font-heading text-3xl font-bold mb-2 glow-text">Start Your Journey</h2>
+          <p className="text-muted">Create your পথচলা account and discover opportunities</p>
         </div>
 
         {/* Registration Form */}
-        <div className="card p-8">
+        <div className="neon-card p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Error message */}
             {error && (
@@ -436,10 +436,10 @@ const Register = () => {
                       key={topic}
                       className={`flex items-center space-x-3 p-3 border rounded-lg cursor-pointer transition-all ${
                         isSelected
-                          ? 'bg-primary/10 border-primary'
+                          ? 'bg-[rgba(168,85,247,0.06)] border-[rgba(168,85,247,0.18)]'
                           : isDisabled
-                          ? 'bg-gray-50 border-gray-200 opacity-50 cursor-not-allowed'
-                          : 'bg-white border-gray-300 hover:border-primary/50'
+                          ? 'bg-section border-[rgba(255,255,255,0.02)] opacity-50 cursor-not-allowed'
+                          : 'bg-section border-[rgba(255,255,255,0.04)] hover:border-[rgba(168,85,247,0.12)]'
                       }`}
                     >
                       <input

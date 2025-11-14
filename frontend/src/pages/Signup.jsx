@@ -33,7 +33,7 @@ const Signup = () => {
       <button
         type="button"
         onClick={handleGoogleSignIn}
-        className="w-full flex items-center justify-center gap-2 rounded-md bg-white text-gray-700 border border-gray-300 px-4 py-2 hover:bg-gray-50 transition"
+        className="w-full flex items-center justify-center gap-2 rounded-md bg-[rgba(255,255,255,0.05)] text-main border border-[rgba(255,255,255,0.1)] px-4 py-2 hover:bg-[rgba(255,255,255,0.1)] transition"
       >
         {/* ...Google SVG from Login.jsx... */}
         <span>Continue with Google</span>

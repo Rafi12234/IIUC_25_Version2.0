@@ -1,105 +1,116 @@
 /**
- * Main CSS File
- * Imports Tailwind and custom styles
+ * Neon Dark Theme CSS
+ * Tailwind base + components + theme utilities
  */
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Base styles */
+/* Base styles for permanent dark theme */
 @layer base {
+  html, body, #root {
+    height: 100%;
+  }
+
   body {
-    @apply bg-bg text-text font-sans antialiased;
+    @apply font-sans antialiased;
+    background-color: #0B0E1C; /* bg-base */
+    color: #FFFFFF; /* text-main */
+    font-family: Poppins, Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0.2px;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold;
+    @apply font-heading font-extrabold tracking-wide;
+    text-shadow: 0 0 10px rgba(168,85,247,0.12);
   }
 
   /* Custom scrollbar for webkit browsers */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    @apply bg-bg-muted;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    @apply bg-border rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-text-light;
-  }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.06); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
 }
 
-/* Component utilities */
+/* Component utilities and neon helpers */
 @layer components {
+  /* Primary gradient pill button */
   .btn-primary {
-    @apply px-6 py-3 bg-primary text-white rounded-lg font-medium 
-           hover:bg-primary-dark transition-all duration-200 
-           hover:shadow-medium active:scale-95;
+    @apply inline-flex items-center justify-center px-6 py-2 rounded-full text-white font-medium;
+    background: linear-gradient(90deg, #A855F7, #7C3AED);
+    box-shadow: 0 6px 30px rgba(10,8,30,0.6), 0 0 18px rgba(168,85,247,0.12);
+    transition: all 180ms ease-in-out;
   }
 
-  .btn-secondary {
-    @apply px-6 py-3 bg-bg-muted text-text rounded-lg font-medium 
-           hover:bg-border transition-all duration-200 
-           hover:shadow-soft active:scale-95;
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 40px rgba(10,8,30,0.75), 0 0 32px rgba(168,85,247,0.2);
+    filter: saturate(1.05);
   }
 
-  .btn-outline {
-    @apply px-6 py-3 border-2 border-primary text-primary rounded-lg font-medium 
-           hover:bg-primary hover:text-white transition-all duration-200 
-           active:scale-95;
+  /* Transparent neon outline */
+  .btn-outline-neon {
+    @apply inline-flex items-center px-5 py-2 rounded-full text-[#A855F7] bg-transparent border-2;
+    border-image: linear-gradient(90deg, rgba(168,85,247,0.7), rgba(213,0,249,0.6)) 1;
+    transition: all 160ms ease-in-out;
   }
 
-  .card {
-    @apply bg-white rounded-xl shadow-soft border border-border 
-           hover:shadow-medium transition-all duration-200;
+  .btn-outline-neon:hover {
+    box-shadow: 0 8px 26px rgba(124,58,237,0.12), 0 0 18px rgba(213,0,249,0.12);
+    color: #fff;
+    background: linear-gradient(90deg, rgba(168,85,247,0.12), rgba(213,0,249,0.06));
   }
 
+  /* Neon card */
+  .neon-card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: 16px;
+    border: 1px solid rgba(124,58,237,0.12);
+    box-shadow: 0 6px 30px rgba(10,8,30,0.6), 0 0 20px rgba(168,85,247,0.06);
+    padding: 1rem;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+  }
+
+  .neon-card:hover { transform: translateY(-6px); box-shadow: 0 14px 46px rgba(10,8,30,0.7), 0 0 40px rgba(168,85,247,0.14); }
+
+  /* Neon border utility */
+  .neon-border {
+    border: 1px solid rgba(168,85,247,0.18);
+    box-shadow: 0 0 12px rgba(168,85,247,0.12), inset 0 0 30px rgba(213,0,249,0.03);
+    border-radius: 12px;
+  }
+
+  .glow-text { text-shadow: 0 0 10px rgba(168,85,247,0.28); }
+  .glow-icon { filter: drop-shadow(0 0 10px rgba(213,0,249,0.38)); }
+
+  /* Updated form and input look */
   .input-field {
-    @apply w-full px-4 py-3 border border-border rounded-lg 
-           focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent 
-           transition-all duration-200;
+    @apply w-full px-4 py-3 rounded-lg border border-[rgba(255,255,255,0.04)];
+    background: #11152B; /* bg-section */
+    color: #FFFFFF; /* text-main */
+    transition: box-shadow 160ms ease, transform 120ms ease;
   }
 
-  .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-
-  .page-padding {
-    @apply py-12 sm:py-16 lg:py-20;
-  }
+  .section-container { @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8; }
+  .page-padding { @apply py-12 sm:py-16 lg:py-20; }
 }
 
-/* Dark mode styles */
-.dark {
-  @apply bg-bg-dark text-white;
-}
-
-.dark .card {
-  @apply bg-gray-800 border-border-dark;
-}
-
-.dark .input-field {
-  @apply bg-gray-800 border-border-dark text-white;
-}
-
-/* Animations */
+/* Animations & utilities */
 @layer utilities {
-  .animate-delay-100 {
-    animation-delay: 100ms;
-  }
-  
-  .animate-delay-200 {
-    animation-delay: 200ms;
-  }
-  
-  .animate-delay-300 {
-    animation-delay: 300ms;
-  }
+  .animate-fade-in { animation: fade-in 0.6s both; }
+  .animate-slide-up { animation: slide-up 0.6s both; }
+  .animate-pulse-soft { animation: pulse-soft 2.4s infinite both; }
+
+  .text-muted { color: #B3B3C7; }
+  .bg-section { background: #11152B; }
+  .bg-base { background: #0B0E1C; }
+
+  /* small helpers for gradients */
+  .bg-card-gradient { background-image: linear-gradient(90deg, #6A00F5 0%, #D500F9 100%); }
+  .bg-section-gradient { background-image: linear-gradient(180deg, #0B0E1C 0%, #161A34 100%); }
 }
+
+/* Remove any legacy dark rules — site is permanently dark */

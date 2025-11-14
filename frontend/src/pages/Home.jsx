@@ -36,9 +36,9 @@ const Home = () => {
   ];
 
   return (
-    <div className="home-page bg-white min-h-screen">
+    <div className="home-page bg-base min-h-screen">
       {/* Hero Section */}
-      <section className="hero-section bg-white">
+      <section className="hero-section bg-section">
         <div className="relative overflow-hidden py-20 sm:py-28 lg:py-32">
           {/* Animated background shapes */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -76,30 +76,30 @@ const Home = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <div className="inline-flex items-center space-x-2 px-4 py-2 bg-primary/10 rounded-full mb-6">
-                  <Sparkles className="text-primary" size={16} />
-                  <span className="text-sm font-medium text-primary">Aligned with SDG 8</span>
+                <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full mb-6" style={{background:'rgba(168,85,247,0.06)'}}>
+                  <Sparkles className="text-primary glow-icon" size={16} />
+                  <span className="text-sm font-medium" style={{color:'#C084FC'}}>Aligned with SDG 8</span>
                 </div>
 
-                <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight glow-text">
                   Discover your path.
                   <br />
-                  <span className="text-primary">Shape your career.</span>
+                  <span style={{color:'#A855F7'}}>Shape your career.</span>
                 </h1>
 
-                <p className="text-lg text-text-muted mb-8 max-w-xl">
+                <p className="text-lg text-muted mb-8 max-w-xl">
                   Match your skills to relevant jobs and learning resources — build a roadmap that leads to real opportunities.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <SimpleHoverEffect accentColor="#10b981">
+                  <SimpleHoverEffect accentColor="#A855F7">
                     <Link to="/register" className="btn-primary flex items-center justify-center space-x-2">
                       <span>Get Started</span>
                       <ArrowRight size={18} />
                     </Link>
                   </SimpleHoverEffect>
-                  <SimpleHoverEffect accentColor="#10b981">
-                    <Link to="/jobs" className="btn-outline flex items-center justify-center space-x-2">
+                  <SimpleHoverEffect accentColor="#A855F7">
+                    <Link to="/jobs" className="btn-outline-neon flex items-center justify-center space-x-2">
                       <span>Explore Jobs</span>
                     </Link>
                   </SimpleHoverEffect>
@@ -114,8 +114,8 @@ const Home = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
                     >
-                      <div className="text-3xl font-heading font-bold text-primary">{stat.number}</div>
-                      <div className="text-sm text-text-muted">{stat.label}</div>
+                      <div className="text-3xl font-heading font-bold" style={{color:'#A855F7'}}>{stat.number}</div>
+                      <div className="text-sm text-muted">{stat.label}</div>
                     </motion.div>
                   ))}
                 </div>
@@ -140,14 +140,14 @@ const Home = () => {
                   <motion.div
                     animate={{ y: [0, -10, 0] }}
                     transition={{ duration: 3, repeat: Infinity }}
-                    className="absolute top-10 -left-6 card p-4 shadow-lift"
+                    className="absolute top-10 -left-6 neon-card p-4"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{background:'rgba(168,85,247,0.06)'}}>
                         <TrendingUp className="text-primary" size={20} />
                       </div>
                       <div>
-                        <div className="text-xs text-text-muted">Career Growth</div>
+                        <div className="text-xs text-muted">Career Growth</div>
                         <div className="font-semibold">85% Match</div>
                       </div>
                     </div>
@@ -157,14 +157,14 @@ const Home = () => {
                   <motion.div
                     animate={{ y: [0, 10, 0] }}
                     transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-                    className="absolute bottom-10 -right-6 card p-4 shadow-lift"
+                    className="absolute bottom-10 -right-6 neon-card p-4"
                   >
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{background:'rgba(168,85,247,0.06)'}}>
                         <Award className="text-primary" size={20} />
                       </div>
                       <div>
-                        <div className="text-xs text-text-muted">Skills Gained</div>
+                        <div className="text-xs text-muted">Skills Gained</div>
                         <div className="font-semibold">12 New</div>
                       </div>
                     </div>
@@ -180,7 +180,7 @@ const Home = () => {
       <FeatureReveal />
       
       {/* Stats Section */}
-      <section className="stats-section bg-white py-16">
+      <section className="stats-section bg-base py-16">
         <div className="section-container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -192,7 +192,7 @@ const Home = () => {
             <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
               Our Impact at a Glance
             </h2>
-            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+            <p className="text-lg text-muted max-w-2xl mx-auto">
               See how we've helped students and fresh graduates kickstart their careers.
             </p>
           </motion.div>
@@ -206,8 +206,8 @@ const Home = () => {
                 transition={{ delay: 0.3 + index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-4xl font-heading font-bold text-primary mb-2">{stat.number}</div>
-                <div className="text-sm text-text-muted">{stat.label}</div>
+                <div className="text-4xl font-heading font-bold" style={{color:'#A855F7'}}>{stat.number}</div>
+                <div className="text-sm text-muted">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -215,7 +215,7 @@ const Home = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="testimonials-section bg-white py-16">
+      <section className="testimonials-section bg-section py-16">
         <div className="section-container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -227,7 +227,7 @@ const Home = () => {
             <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
               What Our Users Say
             </h2>
-            <p className="text-lg text-text-muted max-w-2xl mx-auto">
+            <p className="text-lg text-muted max-w-2xl mx-auto">
               Hear from students and graduates who have found success with CareerPath.
             </p>
           </motion.div>
@@ -240,9 +240,9 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="neon-card p-6"
             >
-              <p className="text-text-muted mb-4">
+                <p className="text-muted mb-4">
                 "CareerPath helped me discover my passion and land my dream job. The personalized recommendations are spot on!"
               </p>
               <div className="flex items-center space-x-3">
@@ -251,7 +251,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="text-sm font-semibold">John Doe</div>
-                  <div className="text-xs text-text-muted">Software Engineer, ABC Corp</div>
+                  <div className="text-xs text-muted">Software Engineer, ABC Corp</div>
                 </div>
               </div>
             </motion.div>
@@ -261,9 +261,9 @@ const Home = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+              className="neon-card p-6"
             >
-              <p className="text-text-muted mb-4">
+                <p className="text-muted mb-4">
                 "The resources and job matches I received were incredibly helpful. I felt supported throughout my job search."
               </p>
               <div className="flex items-center space-x-3">
@@ -272,7 +272,7 @@ const Home = () => {
                 </div>
                 <div>
                   <div className="text-sm font-semibold">Jane Smith</div>
-                  <div className="text-xs text-text-muted">Data Analyst, XYZ Inc</div>
+                  <div className="text-xs text-muted">Data Analyst, XYZ Inc</div>
                 </div>
               </div>
             </motion.div>
@@ -281,14 +281,14 @@ const Home = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="cta-section bg-white py-16">
+      <section className="cta-section bg-section py-16">
         <div className="section-container">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-12 text-center text-white"
+            className="bg-gradient-to-br from-[#A855F7] to-[#7C3AED] rounded-2xl p-12 text-center text-white"
           >
             <h2 className="font-heading text-3xl sm:text-4xl font-bold mb-4">
               Ready to Start Your Career Journey?
@@ -298,7 +298,7 @@ const Home = () => {
             </p>
             <Link
               to="/register"
-              className="inline-flex items-center space-x-2 px-8 py-4 bg-white text-primary rounded-lg font-semibold hover:shadow-lift transition-all active:scale-95"
+              className="inline-flex items-center space-x-2 px-8 py-4 btn-primary font-semibold active:scale-95"
             >
               <span>Get Started Free</span>
               <ArrowRight size={20} />

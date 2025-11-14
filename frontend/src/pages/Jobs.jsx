@@ -177,7 +177,7 @@ const Jobs = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen bg-base">
       {/* Notification */}
       <AnimatePresence>
         {notification && (
@@ -189,7 +189,7 @@ const Jobs = () => {
           >
             <div className={`flex items-center gap-3 px-6 py-4 rounded-xl shadow-2xl ${
               notification.type === 'success' 
-                ? 'bg-green-500 text-white' 
+                ? 'bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white' 
                 : 'bg-red-500 text-white'
             }`}>
               {notification.type === 'success' ? (
@@ -204,7 +204,7 @@ const Jobs = () => {
       </AnimatePresence>
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-20 px-4">
+      <div className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -220,7 +220,7 @@ const Jobs = () => {
             >
               <Briefcase size={64} className="mx-auto opacity-90" />
             </motion.div>
-            <h1 className="text-5xl font-bold mb-4">Find Your Dream Job</h1>
+            <h1 className="text-5xl font-bold mb-4 glow-text">Find Your Dream Job</h1>
             <p className="text-xl opacity-90 max-w-2xl mx-auto">
               Discover exciting career opportunities that match your skills and aspirations
             </p>
@@ -241,7 +241,7 @@ const Jobs = () => {
           transition={{ delay: 0.3 }}
           className="mb-12"
         >
-          <div className="bg-white rounded-2xl shadow-xl p-6">
+          <div className="neon-card p-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -250,7 +250,7 @@ const Jobs = () => {
                   placeholder="Search jobs, companies, or keywords..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all"
+                  className="input-field pl-12"
                 />
               </div>
               {searchTerm && (
@@ -258,7 +258,7 @@ const Jobs = () => {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   onClick={() => setSearchTerm('')}
-                  className="px-4 py-2 bg-gray-100 text-gray-600 rounded-xl hover:bg-gray-200 transition-colors"
+                  className="px-4 py-2 btn-outline-neon transition-colors"
                 >
                   Clear
                 </motion.button>
@@ -266,13 +266,13 @@ const Jobs = () => {
             </div>
             
             {/* Stats */}
-            <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
+            <div className="mt-4 flex items-center justify-between text-sm text-muted">
               <span className="flex items-center gap-2">
                 <TrendingUp size={16} />
                 {filteredJobs.length} job{filteredJobs.length !== 1 ? 's' : ''} found
               </span>
               {searchTerm && (
-                <span className="text-blue-600">
+                <span className="text-primary">
                   Searching for "{searchTerm}"
                 </span>
               )}
@@ -288,9 +288,9 @@ const Jobs = () => {
               transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
               className="inline-block"
             >
-              <Briefcase size={48} className="text-blue-600" />
+              <Briefcase size={48} className="text-primary glow-icon" />
             </motion.div>
-            <p className="mt-4 text-gray-600 text-lg">Loading amazing opportunities...</p>
+            <p className="mt-4 text-muted text-lg">Loading amazing opportunities...</p>
           </div>
         ) : (
           <>
@@ -311,29 +311,29 @@ const Jobs = () => {
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.05 }}
                       whileHover={{ y: -8, scale: 1.02 }}
-                      className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all group"
+                      className="neon-card overflow-hidden transition-all group"
                     >
                       {/* Card Header with Gradient */}
-                      <div className="h-2 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                      <div className="h-2 bg-card-gradient"></div>
                       
                       <div className="p-6">
                         {/* Company Badge */}
                         <div className="flex items-center gap-2 mb-4">
-                          <div className="w-12 h-12 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center">
-                            <Building2 className="text-blue-600" size={24} />
+                          <div className="w-12 h-12 rounded-xl flex items-center justify-center" style={{background:'rgba(168,85,247,0.06)'}}>
+                            <Building2 className="text-primary glow-icon" size={24} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-semibold text-gray-800 truncate">
+                            <h4 className="font-semibold text-main truncate">
                               {job.company}
                             </h4>
-                            <p className="text-xs text-gray-500">Company</p>
+                            <p className="text-xs text-muted">Company</p>
                           </div>
                         </div>
 
                         {/* Applied Badge */}
                         {job.hasApplied && (
                           <div className="mb-3">
-                            <span className="inline-flex items-center gap-1.5 bg-green-100 text-green-700 px-3 py-1.5 rounded-full text-xs font-semibold">
+                            <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white px-3 py-1.5 rounded-full text-xs font-semibold">
                               <CheckCircle size={14} />
                               Already Applied
                             </span>
@@ -341,32 +341,32 @@ const Jobs = () => {
                         )}
 
                         {/* Job Title */}
-                        <h3 className="text-xl font-bold mb-3 text-gray-800 line-clamp-2">
+                        <h3 className="text-xl font-bold mb-3 glow-text line-clamp-2">
                           {job.title}
                         </h3>
 
                         {/* Job Details Preview */}
-                        <p className="text-sm text-gray-600 mb-4 line-clamp-3">
+                        <p className="text-sm text-muted mb-4 line-clamp-3">
                           {job.details}
                         </p>
 
                         {/* Salary */}
-                        <div className="flex items-center gap-2 mb-3 p-3 bg-green-50 rounded-xl">
-                          <DollarSign className="text-green-600" size={20} />
+                        <div className="flex items-center gap-2 mb-3 p-3 rounded-xl" style={{background:'rgba(168,85,247,0.04)'}}>
+                          <DollarSign className="text-primary" size={20} />
                           <div>
-                            <p className="text-xs text-gray-600">Salary</p>
-                            <p className="font-bold text-green-700">
+                            <p className="text-xs text-muted">Salary</p>
+                            <p className="font-bold" style={{color:'#C084FC'}}>
                               {formatSalary(job.salary)}
                             </p>
                           </div>
                         </div>
 
                         {/* Applicants Count */}
-                        <div className="flex items-center gap-2 mb-4 p-3 bg-blue-50 rounded-xl">
-                          <Users className="text-blue-600" size={20} />
+                        <div className="flex items-center gap-2 mb-4 p-3 rounded-xl" style={{background:'rgba(168,85,247,0.04)'}}>
+                          <Users className="text-primary" size={20} />
                           <div>
-                            <p className="text-xs text-gray-600">Applicants</p>
-                            <p className="font-bold text-blue-700">
+                            <p className="text-xs text-muted">Applicants</p>
+                            <p className="font-bold" style={{color:'#C084FC'}}>
                               {job.applicantCount} {job.applicantCount === 1 ? 'person' : 'people'} applied
                             </p>
                           </div>
@@ -376,14 +376,14 @@ const Jobs = () => {
                         <div className="flex gap-2">
                           <button
                             onClick={() => setSelectedJob(job)}
-                            className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-xl hover:bg-gray-200 transition-all font-medium"
+                            className="flex-1 btn-outline-neon py-3 px-4 font-medium"
                           >
                             View Details
                           </button>
                           <button
                             onClick={() => handleApply(job.id, job.title)}
                             disabled={applying || job.hasApplied || !currentUser}
-                            className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-medium shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="flex-1 btn-primary py-3 px-4 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                           >
                             {job.hasApplied ? 'Applied ✓' : applying ? 'Applying...' : 'Apply Now'}
                           </button>
@@ -400,15 +400,15 @@ const Jobs = () => {
                   exit={{ opacity: 0, scale: 0.9 }}
                   className="text-center py-20"
                 >
-                  <div className="bg-white rounded-2xl shadow-lg p-12 max-w-md mx-auto">
-                    <Briefcase size={64} className="mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2">No Jobs Found</h3>
-                    <p className="text-gray-600 mb-6">
+                  <div className="neon-card p-12 max-w-md mx-auto">
+                    <Briefcase size={64} className="mx-auto text-muted mb-4" />
+                    <h3 className="text-2xl font-bold glow-text mb-2">No Jobs Found</h3>
+                    <p className="text-muted mb-6">
                       We couldn't find any jobs matching "{searchTerm}". Try adjusting your search.
                     </p>
                     <button
                       onClick={() => setSearchTerm('')}
-                      className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors"
+                      className="btn-primary"
                     >
                       Clear Search
                     </button>
@@ -435,11 +435,11 @@ const Jobs = () => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ type: "spring", damping: 25 }}
-              className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+              className="neon-card rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="sticky top-0 bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-t-2xl">
+              <div className="sticky top-0 bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white p-6 rounded-t-2xl">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
@@ -452,7 +452,7 @@ const Jobs = () => {
                       </div>
                     </div>
                     {selectedJob.hasApplied && (
-                      <span className="inline-flex items-center gap-1.5 bg-green-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold">
+                      <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white px-3 py-1.5 rounded-full text-xs font-semibold">
                         <CheckCircle size={14} />
                         You have applied for this job
                       </span>
@@ -472,14 +472,14 @@ const Jobs = () => {
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
                   {/* Salary */}
-                  <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-2xl p-4">
+                  <div className="bg-gradient-to-br from-[rgba(168,85,247,0.1)] to-[rgba(213,0,249,0.1)] border-2 border-[rgba(168,85,247,0.3)] rounded-2xl p-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#A855F7] to-[#D500F9] rounded-xl flex items-center justify-center">
                         <DollarSign size={24} className="text-white" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-600 mb-1">Salary Package</p>
-                        <p className="text-xl font-bold text-green-700">
+                        <p className="text-xs text-muted mb-1">Salary Package</p>
+                        <p className="text-xl font-bold text-primary">
                           {formatSalary(selectedJob.salary)}
                         </p>
                       </div>
@@ -487,14 +487,14 @@ const Jobs = () => {
                   </div>
 
                   {/* Applicants */}
-                  <div className="bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-4">
+                  <div className="bg-gradient-to-br from-[rgba(168,85,247,0.1)] to-[rgba(213,0,249,0.1)] border-2 border-[rgba(168,85,247,0.3)] rounded-2xl p-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                      <div className="w-12 h-12 bg-gradient-to-br from-[#A855F7] to-[#D500F9] rounded-xl flex items-center justify-center">
                         <Users size={24} className="text-white" />
                       </div>
                       <div>
-                        <p className="text-xs text-gray-600 mb-1">Total Applicants</p>
-                        <p className="text-xl font-bold text-blue-700">
+                        <p className="text-xs text-muted mb-1">Total Applicants</p>
+                        <p className="text-xl font-bold text-primary">
                           {selectedJob.applicantCount} {selectedJob.applicantCount === 1 ? 'person' : 'people'}
                         </p>
                       </div>
@@ -505,11 +505,11 @@ const Jobs = () => {
                 {/* Job Details Section */}
                 <div className="mb-6">
                   <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                    <Briefcase className="text-blue-600" size={24} />
+                    <Briefcase className="text-primary glow-icon" size={24} />
                     Job Details
                   </h3>
                   <div className="bg-gray-50 rounded-xl p-6">
-                    <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                    <p className="text-muted leading-relaxed whitespace-pre-line">
                       {selectedJob.details}
                     </p>
                   </div>
@@ -532,7 +532,7 @@ const Jobs = () => {
                 <div className="flex gap-4">
                   <button
                     onClick={() => setSelectedJob(null)}
-                    className="flex-1 bg-gray-200 text-gray-700 py-4 px-6 rounded-xl hover:bg-gray-300 transition-colors font-medium"
+                    className="flex-1 btn-outline-neon py-4 px-6"
                   >
                     Close
                   </button>

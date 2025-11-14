@@ -4,47 +4,40 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: 'class',
+  // Theme is permanently dark by design — no toggle.
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#00C16A',
-          dark: '#009956',
-          light: '#00E67E',
-        },
-        bg: {
-          DEFAULT: '#FFFFFF',
-          dark: '#0F1419',
-          muted: '#F9FAFB',
-        },
-        text: {
-          DEFAULT: '#1A1A1A',
-          muted: '#6B7280',
-          light: '#9CA3AF',
-        },
-        border: {
-          DEFAULT: '#E5E7EB',
-          dark: '#374151',
-        }
+        'bg-base': '#0B0E1C',
+        'bg-section': '#11152B',
+        primary: '#A855F7',
+        'primary-light': '#C084FC',
+        'primary-dark': '#7C3AED',
+        'accent-pink': '#D500F9',
+        'accent-blue': '#4F46E5',
+        'text-main': '#FFFFFF',
+        'text-muted': '#B3B3C7',
+      },
+      backgroundImage: {
+        'card-gradient': "linear-gradient(90deg, #6A00F5 0%, #D500F9 100%)",
+        'section-gradient': "linear-gradient(180deg, #0B0E1C 0%, #161A34 100%)",
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Poppins', 'system-ui', 'sans-serif'],
+        sans: ['Poppins', 'Inter', 'sans-serif'],
+        heading: ['Poppins', 'Inter', 'sans-serif'],
       },
       borderRadius: {
-        'xl': '1rem',
-        '2xl': '1.5rem',
+        'lg': '16px',
+        'xl': '20px',
       },
       boxShadow: {
-        'soft': '0 2px 8px rgba(0, 0, 0, 0.04)',
-        'medium': '0 4px 16px rgba(0, 0, 0, 0.08)',
-        'lift': '0 8px 24px rgba(0, 0, 0, 0.12)',
+        'neon-soft': '0 6px 30px rgba(10, 8, 30, 0.6)',
+        'neon-glow': '0 0 30px rgba(168,85,247,0.12)',
       },
       animation: {
-        'fade-in': 'fadeIn 0.5s ease-in-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'float': 'float 3s ease-in-out infinite',
+        'fade-in': 'fadeIn 0.6s ease-in-out',
+        'slide-up': 'slideUp 0.6s ease-out',
+        'pulse-soft': 'pulseSoft 2.4s ease-in-out infinite',
       },
       keyframes: {
         fadeIn: {
@@ -52,12 +45,13 @@ export default {
           '100%': { opacity: '1' },
         },
         slideUp: {
-          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '0%': { transform: 'translateY(18px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
-        float: {
-          '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-10px)' },
+        pulseSoft: {
+          '0%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(1.02)', opacity: '0.96' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
         },
       },
     },

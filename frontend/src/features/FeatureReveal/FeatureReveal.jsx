@@ -11,12 +11,12 @@ const FeatureReveal = () => {
   const photosRef = useRef([]);
   const headingsRef = useRef([]);
 
-  // Background colors for each feature section
+  // Background colors for each feature section - Neon dark theme
   const colors = [
-    '#10b981', // Emerald green
-    '#3b82f6', // Blue
-    '#8b5cf6', // Purple
-    '#f59e0b', // Amber
+    '#11152B', // Dark section
+    '#161A34', // Slightly lighter dark
+    '#0B0E1C', // Base dark
+    '#11152B', // Dark section
   ];
 
   // Feature data
@@ -26,28 +26,28 @@ const FeatureReveal = () => {
       title: 'Smart Job Matching',
       description: 'Our AI-powered algorithm matches you with the perfect career opportunities based on your skills, experience, and preferences.',
       image: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2084&q=80',
-      gradient: 'from-emerald-500 to-green-600'
+      gradient: 'from-[#A855F7] to-[#7C3AED]'
     },
     {
       id: 2,
       title: 'Career Analytics',
       description: 'Get detailed insights into your career progress with comprehensive analytics and personalized recommendations.',
       image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      gradient: 'from-blue-500 to-indigo-600'
+      gradient: 'from-[#D500F9] to-[#A855F7]'
     },
     {
       id: 3,
       title: 'Skill Development',
       description: 'Access curated learning resources and track your skill development journey with our integrated learning platform.',
       image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80',
-      gradient: 'from-purple-500 to-violet-600'
+      gradient: 'from-[#7C3AED] to-[#D500F9]'
     },
     {
       id: 4,
       title: 'Network Building',
       description: 'Connect with industry professionals and build meaningful relationships that advance your career goals.',
       image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
-      gradient: 'from-amber-500 to-orange-600'
+      gradient: 'from-[#A855F7] to-[#D500F9]'
     }
   ];
 
@@ -229,18 +229,18 @@ const FeatureReveal = () => {
   }, [colors]);
 
   return (
-    <section className="feature-reveal-section">
+    <section className="feature-reveal-section bg-base">
       <div className="container mx-auto px-4 py-16">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 
-            className="text-4xl md:text-5xl font-bold mb-6 reveal"
+            className="text-4xl md:text-5xl font-bold mb-6 reveal glow-text"
             ref={el => headingsRef.current[0] = el}
           >
             Powerful Features for Your Career
           </h2>
           <p 
-            className="text-xl text-gray-600 max-w-3xl mx-auto reveal"
+            className="text-xl text-muted max-w-3xl mx-auto reveal"
             ref={el => headingsRef.current[1] = el}
           >
             Discover how পথচলা empowers professionals with cutting-edge tools and insights
@@ -279,15 +279,15 @@ const FeatureReveal = () => {
               >
                 <div className="feature-text">
                   <h3 
-                    className="feature-title reveal"
+                    className="feature-title reveal glow-text"
                     ref={el => headingsRef.current[index + 2] = el}
                   >
                     {feature.title}
                   </h3>
-                  <p className="feature-description">
+                  <p className="feature-description text-muted">
                     {feature.description}
                   </p>
-                  <button className="cursor-hover feature-cta">
+                  <button className="cursor-hover feature-cta btn-primary">
                     Learn More
                     <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

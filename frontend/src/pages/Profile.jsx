@@ -99,19 +99,19 @@ const Profile = () => {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen py-12 px-4"
+      className="min-h-screen bg-base py-12 px-4"
     >
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="bg-white rounded-lg shadow-md p-8 mb-8">
+        <div className="neon-card p-8 mb-8">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-gradient-to-br from-[#A855F7] to-[#D500F9] rounded-full flex items-center justify-center">
                 <User size={32} className="text-white" />
               </div>
               <div>
-                <h1 className="text-3xl font-bold">{currentUser?.displayName || 'User'}</h1>
-                <p className="text-gray-600 flex items-center">
+                <h1 className="text-3xl font-bold glow-text">{currentUser?.displayName || 'User'}</h1>
+                <p className="text-muted flex items-center">
                   <Mail size={16} className="mr-2" />
                   {currentUser?.email}
                 </p>
@@ -119,7 +119,7 @@ const Profile = () => {
             </div>
             <button
               onClick={() => setEditing(!editing)}
-              className="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              className="btn-primary flex items-center space-x-2"
             >
               {editing ? <X size={16} /> : <Edit size={16} />}
               <span>{editing ? 'Cancel' : 'Edit Profile'}</span>
@@ -140,7 +140,7 @@ const Profile = () => {
                     name="education"
                     value={formData.education}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="input-field"
                     placeholder="Your education background"
                   />
                 </div>
@@ -154,7 +154,7 @@ const Profile = () => {
                     name="careerTrack"
                     value={formData.careerTrack}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="input-field"
                     placeholder="Your career focus"
                   />
                 </div>
@@ -167,7 +167,7 @@ const Profile = () => {
                   value={formData.bio}
                   onChange={handleChange}
                   rows="4"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="input-field"
                   placeholder="Tell us about yourself..."
                 />
               </div>
@@ -179,7 +179,7 @@ const Profile = () => {
                   name="skills"
                   value={formData.skills.join(', ')}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  className="input-field"
                   placeholder="JavaScript, React, Node.js, etc."
                 />
               </div>
@@ -195,7 +195,7 @@ const Profile = () => {
                     name="experience"
                     value={formData.experience}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="input-field"
                     placeholder="Student, Junior, Senior, etc."
                   />
                 </div>
@@ -206,7 +206,7 @@ const Profile = () => {
                     name="location"
                     value={formData.location}
                     onChange={handleChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                    className="input-field"
                     placeholder="City, Country"
                   />
                 </div>
@@ -214,7 +214,7 @@ const Profile = () => {
 
               <button
                 type="submit"
-                className="flex items-center space-x-2 px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="btn-primary flex items-center space-x-2"
               >
                 <Save size={16} />
                 <span>Save Changes</span>
@@ -228,20 +228,20 @@ const Profile = () => {
                     <GraduationCap size={16} className="mr-2" />
                     Education
                   </h3>
-                  <p className="text-gray-600">{profile?.profile?.education || 'Not specified'}</p>
+                  <p className="text-muted">{profile?.profile?.education || 'Not specified'}</p>
                 </div>
                 <div>
                   <h3 className="font-semibold mb-2 flex items-center">
                     <Target size={16} className="mr-2" />
                     Career Track
                   </h3>
-                  <p className="text-gray-600">{profile?.profile?.careerTrack || 'Not specified'}</p>
+                  <p className="text-muted">{profile?.profile?.careerTrack || 'Not specified'}</p>
                 </div>
               </div>
 
               <div>
                 <h3 className="font-semibold mb-2">Bio</h3>
-                <p className="text-gray-600">{profile?.profile?.bio || 'No bio available'}</p>
+                <p className="text-muted">{profile?.profile?.bio || 'No bio available'}</p>
               </div>
 
               <div>
@@ -251,13 +251,13 @@ const Profile = () => {
                     profile.profile.skills.map((skill, index) => (
                       <span
                         key={index}
-                        className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm"
+                        className="px-3 py-1 bg-[rgba(168,85,247,0.1)] text-primary rounded-full text-sm"
                       >
                         {skill}
                       </span>
                     ))
                   ) : (
-                    <p className="text-gray-600">No skills added</p>
+                    <p className="text-muted">No skills added</p>
                   )}
                 </div>
               </div>
@@ -268,11 +268,11 @@ const Profile = () => {
                     <Briefcase size={16} className="mr-2" />
                     Experience
                   </h3>
-                  <p className="text-gray-600">{profile?.profile?.experience || 'Not specified'}</p>
+                  <p className="text-muted">{profile?.profile?.experience || 'Not specified'}</p>
                 </div>
                 <div>
                   <h3 className="font-semibold mb-2">Location</h3>
-                  <p className="text-gray-600">{profile?.profile?.location || 'Not specified'}</p>
+                  <p className="text-muted">{profile?.profile?.location || 'Not specified'}</p>
                 </div>
               </div>
             </div>
@@ -280,19 +280,19 @@ const Profile = () => {
         </div>
 
         {/* Applications Section */}
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-2xl font-bold mb-6">My Applications</h2>
+        <div className="neon-card p-8">
+          <h2 className="text-2xl font-bold glow-text mb-6">My Applications</h2>
           {applications.length > 0 ? (
             <div className="space-y-4">
               {applications.map((app) => (
-                <div key={app.id} className="border border-gray-200 rounded-lg p-4">
+                <div key={app.id} className="border border-[rgba(255,255,255,0.1)] rounded-lg p-4">
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="font-semibold">Job ID: {app.jobId}</p>
-                      <p className="text-sm text-gray-600">
+                      <p className="font-semibold text-main">Job ID: {app.jobId}</p>
+                      <p className="text-sm text-muted">
                         Status: <span className="capitalize">{app.status}</span>
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-muted">
                         Applied: {app.appliedAt?.toDate?.()?.toLocaleDateString() || 'Unknown date'}
                       </p>
                     </div>
@@ -301,7 +301,7 @@ const Profile = () => {
               ))}
             </div>
           ) : (
-            <p className="text-gray-600">No applications yet. Start applying to jobs!</p>
+            <p className="text-muted">No applications yet. Start applying to jobs!</p>
           )}
         </div>
       </div>

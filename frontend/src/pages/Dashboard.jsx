@@ -166,7 +166,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
+    <div className="min-h-screen bg-base">
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Welcome Header */}
         <motion.div
@@ -174,10 +174,10 @@ const Dashboard = () => {
           animate={{ opacity: 1, y: 0 }}
           className="mb-8"
         >
-          <h1 className="text-4xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold mb-2 glow-text">
             Welcome back, {currentUser?.displayName?.split(' ')[0] || currentUser?.email?.split('@')[0] || 'Guest'}! 👋
           </h1>
-          <p className="text-gray-600">
+          <p className="text-muted">
             Here's what's happening with your career journey
           </p>
         </motion.div>
@@ -188,25 +188,25 @@ const Dashboard = () => {
             icon={User} 
             label="Profile Completion" 
             value="75%" 
-            color="bg-gradient-to-br from-blue-500 to-blue-600" 
+            color="bg-gradient-to-br from-[#A855F7] to-[#7C3AED]" 
           />
           <StatCard 
             icon={Briefcase} 
             label="Matched Jobs" 
             value={recommendations.jobs.length} 
-            color="bg-gradient-to-br from-green-500 to-green-600" 
+            color="bg-gradient-to-br from-[#D500F9] to-[#A855F7]" 
           />
           <StatCard 
             icon={GraduationCap} 
             label="Enrolled Courses" 
             value={enrolledCourses.length} 
-            color="bg-gradient-to-br from-purple-500 to-purple-600" 
+            color="bg-gradient-to-br from-[#7C3AED] to-[#D500F9]" 
           />
           <StatCard 
             icon={TrendingUp} 
             label="Recommendations" 
             value={recommendedCourses.length} 
-            color="bg-gradient-to-br from-orange-500 to-orange-600" 
+            color="bg-gradient-to-br from-[#A855F7] to-[#D500F9]" 
           />
         </div>
 
@@ -215,10 +215,10 @@ const Dashboard = () => {
           <section className="mb-12">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <Sparkles className="text-yellow-500" size={28} />
-                <h2 className="text-2xl font-bold">Recommended For You</h2>
+                <Sparkles className="text-primary glow-icon" size={28} />
+                <h2 className="text-2xl font-bold glow-text">Recommended For You</h2>
               </div>
-              <button className="text-blue-600 hover:text-blue-700 flex items-center gap-2 font-medium transition-colors">
+              <button className="text-primary hover:text-primary-light flex items-center gap-2 font-medium transition-colors">
                 <span>View All Courses</span>
                 <ArrowRight size={18} />
               </button>
@@ -236,10 +236,10 @@ const Dashboard = () => {
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <GraduationCap className="text-purple-600" size={28} />
-              <h2 className="text-2xl font-bold">My Enrolled Courses</h2>
+              <GraduationCap className="text-primary glow-icon" size={28} />
+              <h2 className="text-2xl font-bold glow-text">My Enrolled Courses</h2>
             </div>
-            <button className="text-blue-600 hover:text-blue-700 flex items-center gap-2 font-medium transition-colors">
+            <button className="text-primary hover:text-primary-light flex items-center gap-2 font-medium transition-colors">
               <span>Browse All Courses</span>
               <ArrowRight size={18} />
             </button>
@@ -247,7 +247,7 @@ const Dashboard = () => {
 
           {loading ? (
             <div className="flex justify-center py-16">
-              <div className="animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent"></div>
+              <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary border-t-transparent"></div>
             </div>
           ) : enrolledCourses.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -259,13 +259,13 @@ const Dashboard = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl shadow-lg p-12 text-center"
+              className="neon-card p-12 text-center"
             >
-              <GraduationCap className="mx-auto text-gray-300 mb-4" size={64} />
-              <p className="text-gray-600 text-lg mb-4">
+              <GraduationCap className="mx-auto text-muted mb-4" size={64} />
+              <p className="text-muted text-lg mb-4">
                 You haven't enrolled in any courses yet
               </p>
-              <button className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-medium">
+              <button className="btn-primary inline-flex items-center gap-2">
                 <BookOpen size={20} />
                 Explore Courses
               </button>
@@ -277,10 +277,10 @@ const Dashboard = () => {
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <Briefcase className="text-green-600" size={28} />
-              <h2 className="text-2xl font-bold">Recommended Jobs for You</h2>
+              <Briefcase className="text-primary glow-icon" size={28} />
+              <h2 className="text-2xl font-bold glow-text">Recommended Jobs for You</h2>
             </div>
-            <button className="text-blue-600 hover:text-blue-700 flex items-center gap-2 font-medium transition-colors">
+            <button className="text-primary hover:text-primary-light flex items-center gap-2 font-medium transition-colors">
               <span>View All</span>
               <ArrowRight size={18} />
             </button>
@@ -296,11 +296,11 @@ const Dashboard = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl shadow-lg p-12 text-center"
+              className="neon-card p-12 text-center"
             >
-              <Briefcase className="mx-auto text-gray-300 mb-4" size={64} />
-              <p className="text-gray-600">
-                No job recommendations yet. <span className="text-blue-600 hover:text-blue-700 font-medium cursor-pointer">Update your skills</span> to get personalized matches!
+              <Briefcase className="mx-auto text-muted mb-4" size={64} />
+              <p className="text-muted">
+                No job recommendations yet. <span className="text-primary hover:text-primary-light font-medium cursor-pointer">Update your skills</span> to get personalized matches!
               </p>
             </motion.div>
           )}
@@ -310,10 +310,10 @@ const Dashboard = () => {
         <section>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <BookOpen className="text-blue-600" size={28} />
-              <h2 className="text-2xl font-bold">Learning Resources</h2>
+              <BookOpen className="text-primary glow-icon" size={28} />
+              <h2 className="text-2xl font-bold glow-text">Learning Resources</h2>
             </div>
-            <button className="text-blue-600 hover:text-blue-700 flex items-center gap-2 font-medium transition-colors">
+            <button className="text-primary hover:text-primary-light flex items-center gap-2 font-medium transition-colors">
               <span>View All</span>
               <ArrowRight size={18} />
             </button>
@@ -329,10 +329,10 @@ const Dashboard = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="bg-white rounded-2xl shadow-lg p-12 text-center"
+              className="neon-card p-12 text-center"
             >
-              <BookOpen className="mx-auto text-gray-300 mb-4" size={64} />
-              <p className="text-gray-600">No resource recommendations available</p>
+              <BookOpen className="mx-auto text-muted mb-4" size={64} />
+              <p className="text-muted">No resource recommendations available</p>
             </motion.div>
           )}
         </section>
@@ -344,15 +344,15 @@ const Dashboard = () => {
 // Stat Card Component
 const StatCard = ({ icon: Icon, label, value, color }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    whileHover={{ scale: 1.05 }}
-    className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all cursor-pointer"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    whileHover={{ y: -5 }}
+    className="neon-card p-6 hover:shadow-xl transition-all cursor-pointer"
   >
     <div className="flex items-center justify-between">
       <div>
-        <p className="text-sm text-gray-600 mb-1">{label}</p>
-        <p className="text-3xl font-bold text-gray-800">{value}</p>
+        <p className="text-sm text-muted mb-1">{label}</p>
+        <p className="text-3xl font-bold text-main">{value}</p>
       </div>
       <div className={`w-14 h-14 ${color} rounded-xl flex items-center justify-center shadow-lg`}>
         <Icon className="text-white" size={28} />
@@ -368,11 +368,11 @@ const RecommendedCourseCard = ({ course, index }) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: index * 0.1 }}
     whileHover={{ y: -8 }}
-    className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all group cursor-pointer relative"
+    className="neon-card overflow-hidden hover:shadow-2xl transition-all group cursor-pointer relative"
   >
     {/* Recommended Badge */}
     <div className="absolute top-4 left-4 z-10">
-      <span className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-lg">
+      <span className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-lg">
         <Sparkles size={14} />
         Recommended
       </span>
@@ -400,18 +400,18 @@ const RecommendedCourseCard = ({ course, index }) => (
     <div className="p-6">
       {/* Match Reason */}
       {course.matchedInterest && (
-        <div className="mb-3 flex items-center gap-2 text-xs bg-yellow-50 text-yellow-700 px-3 py-2 rounded-lg">
+        <div className="mb-3 flex items-center gap-2 text-xs bg-[rgba(168,85,247,0.1)] text-primary px-3 py-2 rounded-lg">
           <Sparkles size={14} />
           <span>Matches your interest in <strong>{course.matchedInterest}</strong></span>
         </div>
       )}
 
-      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+      <p className="text-muted text-sm mb-4 line-clamp-2">
         {course.overview}
       </p>
 
       {/* Course Stats */}
-      <div className="flex items-center justify-between text-sm text-gray-500 mb-4 pb-4 border-b border-gray-200">
+      <div className="flex items-center justify-between text-sm text-muted mb-4 pb-4 border-b border-[rgba(255,255,255,0.1)]">
         <div className="flex items-center gap-2">
           <User size={16} />
           <span>{course.enrollmentCount} students</span>
@@ -423,7 +423,7 @@ const RecommendedCourseCard = ({ course, index }) => (
       </div>
 
       {/* Action Button */}
-      <button className="w-full text-center bg-gradient-to-r from-yellow-500 to-orange-500 text-white py-3 px-4 rounded-xl hover:from-yellow-600 hover:to-orange-600 transition-all font-medium shadow-lg hover:shadow-xl">
+      <button className="w-full btn-primary">
         Enroll Now
       </button>
     </div>
@@ -437,7 +437,7 @@ const CourseCard = ({ course, index }) => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: index * 0.1 }}
     whileHover={{ y: -8 }}
-    className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all group cursor-pointer"
+    className="neon-card overflow-hidden hover:shadow-2xl transition-all group cursor-pointer"
   >
     {/* Course Image */}
     <div className="relative h-48 overflow-hidden">
@@ -451,7 +451,7 @@ const CourseCard = ({ course, index }) => (
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
       <div className="absolute top-4 right-4">
-        <span className="bg-green-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-lg">
+        <span className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-lg">
           <CheckCircle size={14} />
           Enrolled
         </span>
@@ -465,12 +465,12 @@ const CourseCard = ({ course, index }) => (
 
     {/* Course Content */}
     <div className="p-6">
-      <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+      <p className="text-muted text-sm mb-4 line-clamp-2">
         {course.overview}
       </p>
 
       {/* Course Stats */}
-      <div className="flex items-center justify-between text-sm text-gray-500 mb-4 pb-4 border-b border-gray-200">
+      <div className="flex items-center justify-between text-sm text-muted mb-4 pb-4 border-b border-[rgba(255,255,255,0.1)]">
         <div className="flex items-center gap-2">
           <User size={16} />
           <span>{course.enrollmentCount} students</span>
@@ -482,7 +482,7 @@ const CourseCard = ({ course, index }) => (
       </div>
 
       {/* Action Button */}
-      <button className="w-full text-center bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all font-medium shadow-lg hover:shadow-xl">
+      <button className="w-full btn-primary">
         Continue Learning
       </button>
     </div>
@@ -491,19 +491,19 @@ const CourseCard = ({ course, index }) => (
 
 // Job Card Component
 const JobCard = ({ job }) => (
-  <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer">
+  <div className="neon-card p-6 hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer">
     <div className="flex items-start justify-between mb-3">
       <div>
-        <h3 className="font-semibold text-lg mb-1 text-gray-800">{job.title}</h3>
-        <p className="text-sm text-gray-600">{job.company} • {job.location}</p>
+        <h3 className="font-semibold text-lg mb-1 text-main">{job.title}</h3>
+        <p className="text-sm text-muted">{job.company} • {job.location}</p>
       </div>
-      <span className="px-3 py-1 bg-blue-100 text-blue-600 text-xs font-medium rounded-full">
+      <span className="px-3 py-1 bg-[rgba(168,85,247,0.1)] text-primary text-xs font-medium rounded-full">
         {job.type}
       </span>
     </div>
-    <p className="text-sm text-gray-600 mb-3 line-clamp-2">{job.description}</p>
+    <p className="text-sm text-muted mb-3 line-clamp-2">{job.description}</p>
     {job.matchReason && (
-      <div className="text-xs text-blue-600 bg-blue-50 px-3 py-2 rounded-lg">
+      <div className="text-xs text-primary bg-[rgba(168,85,247,0.1)] px-3 py-2 rounded-lg">
         ✓ {job.matchReason}
       </div>
     )}
@@ -516,21 +516,21 @@ const ResourceCard = ({ resource }) => (
     href={resource.url}
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all hover:-translate-y-1 block"
+    className="neon-card p-6 hover:shadow-xl transition-all hover:-translate-y-1 block"
   >
     <div className="flex items-start justify-between mb-3">
-      <h3 className="font-semibold mb-1 text-gray-800">{resource.title}</h3>
+      <h3 className="font-semibold mb-1 text-main">{resource.title}</h3>
       <span className={`px-2 py-1 text-xs font-medium rounded ${
         resource.cost === 'Free' 
-          ? 'bg-green-100 text-green-700' 
-          : 'bg-orange-100 text-orange-700'
+          ? 'bg-[rgba(168,85,247,0.1)] text-primary' 
+          : 'bg-[rgba(213,0,249,0.1)] text-accent-pink'
       }`}>
         {resource.cost}
       </span>
     </div>
-    <p className="text-sm text-gray-600 mb-3">{resource.platform}</p>
+    <p className="text-sm text-muted mb-3">{resource.platform}</p>
     {resource.matchReason && (
-      <div className="text-xs text-blue-600 bg-blue-50 px-3 py-2 rounded-lg">
+      <div className="text-xs text-primary bg-[rgba(168,85,247,0.1)] px-3 py-2 rounded-lg">
         {resource.matchReason}
       </div>
     )}

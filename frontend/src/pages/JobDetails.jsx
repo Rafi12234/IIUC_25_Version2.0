@@ -90,9 +90,9 @@ const JobDetails = () => {
   }
 
   return (
-    <div className="page-padding bg-bg-muted dark:bg-gray-900">
+    <div className="page-padding bg-base">
       <div className="section-container max-w-4xl">
-        <Link to="/jobs" className="inline-flex items-center space-x-2 text-text-muted hover:text-primary mb-6">
+        <Link to="/jobs" className="inline-flex items-center space-x-2 text-muted hover:text-primary mb-6">
           <ArrowLeft size={20} />
           <span>Back to Jobs</span>
         </Link>
@@ -100,25 +100,21 @@ const JobDetails = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="card p-8"
+          className="neon-card p-8"
         >
           {/* Header */}
           <div className="mb-6">
             <div className="flex items-start justify-between mb-4">
               <div>
-                <h1 className="font-heading text-3xl font-bold mb-2">{job.title}</h1>
-                <p className="text-xl text-text-muted">{job.company}</p>
+                <h1 className="font-heading text-3xl font-bold mb-2 glow-text">{job.title}</h1>
+                <p className="text-xl text-muted">{job.company}</p>
               </div>
-              <span className={`px-4 py-2 font-medium rounded-lg ${
-                job.type === 'Internship' ? 'bg-blue-100 text-blue-700' :
-                job.type === 'Full-time' ? 'bg-green-100 text-green-700' :
-                'bg-purple-100 text-purple-700'
-              }`}>
+              <span className={`px-4 py-2 font-medium rounded-lg text-sm`} style={{background: 'rgba(168,85,247,0.06)', color: '#C084FC'}}>
                 {job.type}
               </span>
             </div>
 
-            <div className="flex flex-wrap gap-4 text-sm text-text-muted">
+            <div className="flex flex-wrap gap-4 text-sm text-muted">
               <div className="flex items-center space-x-2">
                 <MapPin size={16} />
                 <span>{job.location}</span>
@@ -136,8 +132,8 @@ const JobDetails = () => {
 
           {/* Description */}
           <div className="mb-6">
-            <h2 className="font-heading text-xl font-semibold mb-3">About the Role</h2>
-            <p className="text-text-muted whitespace-pre-line">{job.description}</p>
+            <h2 className="font-heading text-xl font-semibold mb-3 glow-text">About the Role</h2>
+            <p className="text-muted whitespace-pre-line">{job.description}</p>
           </div>
 
           {/* Required Skills */}
@@ -147,7 +143,8 @@ const JobDetails = () => {
               {job.requiredSkills.map((skill) => (
                 <span
                   key={skill}
-                  className="px-4 py-2 bg-primary/10 text-primary rounded-lg font-medium"
+                  className="px-4 py-2 rounded-lg font-medium"
+                  style={{background: 'rgba(168,85,247,0.04)', color:'#C084FC'}}
                 >
                   {skill}
                 </span>
@@ -161,13 +158,13 @@ const JobDetails = () => {
               <ExternalLink size={18} />
               <span>Apply Now</span>
             </button>
-            <button className="btn-secondary">Save Job</button>
+            <button className="btn-outline-neon">Save Job</button>
           </div>
 
           {/* Match Info (if available) */}
           {job.matchReason && (
-            <div className="mt-6 p-4 bg-primary/5 border border-primary/20 rounded-lg">
-              <p className="text-sm font-medium text-primary">✓ {job.matchReason}</p>
+            <div className="mt-6 p-4 rounded-lg" style={{background: 'rgba(168,85,247,0.04)', border: '1px solid rgba(168,85,247,0.08)'}}>
+              <p className="text-sm font-medium" style={{color:'#C084FC'}}>✓ {job.matchReason}</p>
             </div>
           )}
         </motion.div>

@@ -51,7 +51,7 @@ const Contact = () => {
 
   return (
     <div className="contact-page">
-      <div className="page-padding bg-bg-muted dark:bg-gray-900">
+      <div className="page-padding bg-base">
         <div className="section-container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -70,7 +70,7 @@ const Contact = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1 }}
-              className="card p-8"
+              className="neon-card p-8"
             >
               <form onSubmit={handleSubmit} className="contact-form space-y-6">
                 <div>
@@ -148,25 +148,25 @@ const Contact = () => {
               transition={{ delay: 0.2 }}
               className="space-y-6"
             >
-              {contactInfo.map((info) => (
-                <div key={info.label} className="card p-6 flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <info.icon className="text-primary" size={24} />
+                {contactInfo.map((info) => (
+                  <div key={info.label} className="neon-card p-6 flex items-start space-x-4">
+                    <div className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0" style={{background:'rgba(168,85,247,0.06)'}}>
+                      <info.icon className="text-primary glow-icon" size={24} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">{info.label}</h3>
+                      <p className="text-muted">{info.value}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">{info.label}</h3>
-                    <p className="text-text-muted">{info.value}</p>
-                  </div>
-                </div>
-              ))}
+                ))}
 
-              <div className="card p-8 bg-primary/5 border-primary/20">
-                <MessageSquare className="text-primary mb-4" size={32} />
-                <h3 className="font-heading text-xl font-semibold mb-2">Quick Response</h3>
-                <p className="text-text-muted">
-                  We typically respond within 24-48 hours. For urgent matters, please mention it in your message.
-                </p>
-              </div>
+                <div className="neon-card p-8" style={{background:'rgba(168,85,247,0.04)', border:'1px solid rgba(168,85,247,0.08)'}}>
+                  <MessageSquare className="text-primary mb-4 glow-icon" size={32} />
+                  <h3 className="font-heading text-xl font-semibold mb-2 glow-text">Quick Response</h3>
+                  <p className="text-muted">
+                    We typically respond within 24-48 hours. For urgent matters, please mention it in your message.
+                  </p>
+                </div>
             </motion.div>
           </div>
         </div>
