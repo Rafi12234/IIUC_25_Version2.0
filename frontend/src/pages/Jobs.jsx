@@ -390,7 +390,8 @@ const Jobs = () => {
                           <div className={`ml-2 px-3 py-1 rounded-lg text-sm font-bold ${
                             job.matchScore >= 80 ? 'bg-green-500/30 text-green-200' :
                             job.matchScore >= 60 ? 'bg-blue-500/30 text-blue-200' :
-                            'bg-yellow-500/30 text-yellow-200'
+                            job.matchScore >= 40 ? 'bg-yellow-500/30 text-yellow-200' :
+                            'bg-gray-500/30 text-gray-200'
                           }`}>
                             {job.matchScore}%
                           </div>
@@ -470,7 +471,7 @@ const Jobs = () => {
                   <p className="text-white font-semibold mb-1">Complete your profile to see personalized job matches!</p>
                   <p className="text-white/80 text-sm">Add your skills, experience level, and preferred career track in your profile.</p>
                 </div>
-                <a href="/profile" className="btn-outline-neon whitespace-nowrap">
+                <a href="/profile" className="bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 font-semibold px-6 py-2 rounded-lg hover:from-yellow-500 hover:to-orange-600 transition-all shadow-lg whitespace-nowrap">
                   Update Profile
                 </a>
               </div>

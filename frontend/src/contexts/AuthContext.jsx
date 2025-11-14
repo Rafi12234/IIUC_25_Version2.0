@@ -30,13 +30,7 @@ export const AuthProvider = ({ children }) => {
       await setDoc(doc(db, 'users', result.user.uid), {
         name,
         email,
-        createdAt: new Date().toISOString(),
-        profile: {
-          bio: '',
-          skills: [],
-          experience: '',
-          location: ''
-        }
+        createdAt: new Date().toISOString()
       });
       
       return result;
@@ -71,13 +65,7 @@ export const AuthProvider = ({ children }) => {
         await setDoc(userDocRef, {
           name: result.user.displayName,
           email: result.user.email,
-          createdAt: new Date().toISOString(),
-          profile: {
-            bio: '',
-            skills: [],
-            experience: '',
-            location: ''
-          }
+          createdAt: new Date().toISOString()
         });
       }
       
