@@ -381,25 +381,61 @@ const Navbar = () => {
                   </motion.div>
                 ))}
                 {currentUser && (
-                  <motion.div
-                    variants={linkVariants}
-                    initial="initial"
-                    animate="animate"
-                    custom={navLinks.length + userNavLinks.length}
-                  >
-                    <Link
-                      to="/profile"
-                      onClick={() => setIsOpen(false)}
-                      className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
-                        location.pathname === '/profile'
-                          ? 'text-primary border-l-4'
-                          : 'text-muted hover:bg-[rgba(168,85,247,0.06)]'
-                      }`}
-                      style={location.pathname === '/profile' ? {background:'rgba(168,85,247,0.06)', borderColor:'#A855F7'} : {}}
+                  <>
+                    {/* AI Tools Section */}
+                    <motion.div
+                      variants={linkVariants}
+                      initial="initial"
+                      animate="animate"
+                      custom={navLinks.length + userNavLinks.length}
+                      className="pt-2"
                     >
-                      Profile
-                    </Link>
-                  </motion.div>
+                      <div className="px-4 py-2 flex items-center space-x-2">
+                        <Sparkles size={16} className="text-primary" />
+                        <span className="text-xs font-semibold text-muted uppercase tracking-wider">AI Tools</span>
+                      </div>
+                      <div className="space-y-1 mt-2">
+                        {aiFeatures.map((feature, idx) => (
+                          <Link
+                            key={feature.name}
+                            to={feature.href}
+                            onClick={() => setIsOpen(false)}
+                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+                              location.pathname === feature.href
+                                ? 'text-primary border-l-4'
+                                : 'text-muted hover:bg-[rgba(168,85,247,0.06)]'
+                            }`}
+                            style={location.pathname === feature.href ? {background:'rgba(168,85,247,0.06)', borderColor:'#A855F7'} : {}}
+                          >
+                            <span className="text-lg">{feature.icon}</span>
+                            <span>{feature.name}</span>
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+
+                    {/* Profile Link */}
+                    <motion.div
+                      variants={linkVariants}
+                      initial="initial"
+                      animate="animate"
+                      custom={navLinks.length + userNavLinks.length + aiFeatures.length}
+                      className="pt-2"
+                    >
+                      <Link
+                        to="/profile"
+                        onClick={() => setIsOpen(false)}
+                        className={`block px-4 py-3 rounded-lg font-medium transition-all duration-200 ${
+                          location.pathname === '/profile'
+                            ? 'text-primary border-l-4'
+                            : 'text-muted hover:bg-[rgba(168,85,247,0.06)]'
+                        }`}
+                        style={location.pathname === '/profile' ? {background:'rgba(168,85,247,0.06)', borderColor:'#A855F7'} : {}}
+                      >
+                        Profile
+                      </Link>
+                    </motion.div>
+                  </>
                 )}
 
                 <div className="pt-4 border-t" style={{borderColor:'rgba(255,255,255,0.04)'}}>

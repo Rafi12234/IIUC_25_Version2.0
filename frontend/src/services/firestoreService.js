@@ -87,11 +87,16 @@ export const applicationsService = {
   getUserApplications: async (userId) => {
     const q = query(
       collection(db, 'applications'),
-      where('userId', '==', userId),
-      orderBy('appliedAt', 'desc')
+      where('userId', '==', userId)
     );
     const snapshot = await getDocs(q);
-    return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    // Sort client-side to avoid needing a Firestore index
+    const applications = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    return applications.sort((a, b) => {
+      const dateA = a.appliedAt?.toDate?.() || new Date(0);
+      const dateB = b.appliedAt?.toDate?.() || new Date(0);
+      return dateB - dateA; // desc order
+    });
   },
 
   // Get applications for a job
