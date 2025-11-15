@@ -8,6 +8,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, User, LogOut, ChevronDown, Sparkles } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import NotificationButton from './NotificationButton';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -215,7 +216,9 @@ const Navbar = () => {
           {/* Desktop Auth Buttons */}
           <div className="hidden lg:flex items-center space-x-4">
             {currentUser ? (
-              <div className="relative">
+              <>
+                {currentUser && <NotificationButton />}
+                <div className="relative">
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -310,7 +313,8 @@ const Navbar = () => {
                     onClick={() => setShowUserMenu(false)}
                   />
                 )}
-              </div>
+                </div>
+              </>
             ) : (
               <div className="flex items-center space-x-3">
                 <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
