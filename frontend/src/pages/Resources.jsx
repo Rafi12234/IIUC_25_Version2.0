@@ -245,35 +245,61 @@ const CourseResources = () => {
       )}
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white py-20 px-4">
-        <div className="max-w-7xl mx-auto text-center">
-          <BookOpen size={64} className="mx-auto mb-6" />
-          <h1 className="text-5xl font-bold mb-4">Course Resources</h1>
-          <p className="text-lg opacity-90">Explore our comprehensive collection of courses and start learning today</p>
+      <div className="relative bg-gradient-to-br from-[#1A1B2E] via-[#2D1B69] to-[#1A1B2E] text-white py-24 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSJyZ2JhKDE2OCw4NSwyNDcsMC4xKSIvPjwvZz48L3N2Zz4=')] opacity-30"></div>
+        <div className="max-w-7xl mx-auto text-center relative z-10">
+          <div className="inline-block p-4 bg-purple-500/10 rounded-2xl backdrop-blur-sm border border-purple-500/20 mb-6">
+            <BookOpen size={64} className="mx-auto text-purple-400" />
+          </div>
+          <h1 className="text-6xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-pulse">Course Resources</h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">Explore our comprehensive collection of courses and start your learning journey today</p>
+          <div className="mt-8 flex justify-center gap-4 text-sm">
+            <div className="bg-purple-500/20 px-4 py-2 rounded-lg border border-purple-500/30">
+              <span className="text-purple-300 font-semibold">{courses.length}</span>
+              <span className="text-gray-400 ml-1">Courses Available</span>
+            </div>
+            <div className="bg-pink-500/20 px-4 py-2 rounded-lg border border-pink-500/30">
+              <span className="text-pink-300 font-semibold">{enrolledCourses.size}</span>
+              <span className="text-gray-400 ml-1">Your Enrollments</span>
+            </div>
+          </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-12">
         {/* Search Bar */}
-        <div className="mb-8">
-          <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-            <input
-              type="text"
-              placeholder="Search courses by name or description..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="input-field pl-12"
-            />
+        <div className="mb-10">
+          <div className="relative max-w-3xl mx-auto">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl blur-xl"></div>
+            <div className="relative">
+              <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-purple-400" size={22} />
+              <input
+                type="text"
+                placeholder="Search courses by name, description, or topic..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full px-14 py-4 bg-gradient-to-br from-[#1A1B2E] to-[#13141F] border-2 border-purple-500/30 rounded-2xl text-white placeholder-gray-500 focus:outline-none focus:border-purple-500/60 focus:ring-2 focus:ring-purple-500/20 transition-all"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-5 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
         {/* User Status */}
         {currentUser && (
-          <div className="mb-6 text-center">
-            <p className="text-sm text-muted">
-              Signed in as: <span className="font-semibold text-primary">{currentUser.email}</span>
-            </p>
+          <div className="mb-8 text-center">
+            <div className="inline-block bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/30 px-6 py-3 rounded-xl">
+              <p className="text-sm text-gray-400">
+                Signed in as: <span className="font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">{currentUser.email}</span>
+              </p>
+            </div>
           </div>
         )}
 
@@ -290,29 +316,23 @@ const CourseResources = () => {
               {filteredCourses.map((course) => (
                 <div
                   key={course.id}
-                  className="neon-card overflow-hidden transition-all duration-300 hover:shadow-2xl hover:scale-105 group"
-                  style={{
-                    boxShadow: 'inset 0 0 20px rgba(168, 85, 247, 0.1)',
-                  }}
+                  className="relative bg-gradient-to-br from-[#1A1B2E] to-[#13141F] rounded-2xl overflow-hidden border border-purple-500/20 transition-all duration-500 hover:border-purple-500/50 hover:shadow-2xl hover:shadow-purple-500/20 hover:-translate-y-2 group"
                 >
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" style={{
-                    boxShadow: 'inset 0 0 30px rgba(168, 85, 247, 0.4), 0 0 40px rgba(168, 85, 247, 0.3)',
-                    zIndex: -1
-                  }} />
                   {/* Course Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-56 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A1B2E] via-transparent to-transparent opacity-60 z-10"></div>
                     <img
                       src={course.image}
                       alt={course.name}
-                      className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       onError={(e) => {
                         e.target.src = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800';
                       }}
                     />
-                    <div className="absolute top-4 right-4">
+                    <div className="absolute top-4 right-4 z-20">
                       {enrolledCourses.has(course.id) && (
-                        <span className="bg-gradient-to-r from-[#A855F7] to-[#D500F9] text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                          <CheckCircle size={14} />
+                        <span className="bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg shadow-green-500/50 animate-pulse">
+                          <CheckCircle size={16} />
                           Enrolled
                         </span>
                       )}
@@ -321,25 +341,27 @@ const CourseResources = () => {
 
                   {/* Course Content */}
                   <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-3 text-main line-clamp-2">
+                    <h3 className="text-2xl font-bold mb-3 text-white line-clamp-2 group-hover:text-purple-400 transition-colors">
                       {course.name}
                     </h3>
                     
-                    <p className="text-muted text-sm mb-4 line-clamp-3">
+                    <p className="text-gray-400 text-sm mb-5 line-clamp-3 leading-relaxed">
                       {course.overview}
                     </p>
 
                     {/* Enrollment Count */}
-                    <div className="flex items-center gap-2 text-sm text-muted mb-4">
-                      <Users size={16} />
-                      <span>{course.enrollments.length} student{course.enrollments.length !== 1 ? 's' : ''} enrolled</span>
+                    <div className="flex items-center gap-2 bg-purple-500/10 px-4 py-2 rounded-lg mb-5 border border-purple-500/20">
+                      <div className="p-1.5 bg-purple-500/20 rounded-lg">
+                        <Users size={16} className="text-purple-400" />
+                      </div>
+                      <span className="text-sm font-semibold text-gray-300">{course.enrollments.length} student{course.enrollments.length !== 1 ? 's' : ''} enrolled</span>
                     </div>
 
                     {/* Action Buttons */}
                     <div className="flex gap-3">
                       <button
                         onClick={() => setSelectedCourse(course)}
-                        className="flex-1 bg-gradient-to-r from-[#7C3AED] to-[#A855F7] text-white py-3 px-4 rounded-xl hover:from-[#6D28D9] hover:to-[#9333EA] transition-all font-medium shadow-lg"
+                        className="flex-1 bg-[rgba(0,0,0,0.3)] border-2 border-purple-500/30 text-white py-3 px-4 rounded-xl hover:bg-purple-500/20 hover:border-purple-500/50 transition-all font-semibold shadow-lg"
                       >
                         View Details
                       </button>
@@ -347,7 +369,7 @@ const CourseResources = () => {
                         <button
                           onClick={() => handleUnenrollment(course.id)}
                           disabled={unenrolling}
-                          className="flex-1 bg-gradient-to-r from-red-600 to-pink-600 text-white py-3 px-4 rounded-xl hover:from-red-700 hover:to-pink-700 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="flex-1 bg-gradient-to-r from-red-500 to-pink-500 text-white py-3 px-4 rounded-xl hover:from-red-600 hover:to-pink-600 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-red-500/50"
                         >
                           {unenrolling && unenrollingCourseId === course.id ? 'Unenrolling...' : 'Unenroll'}
                         </button>
@@ -355,7 +377,7 @@ const CourseResources = () => {
                         <button
                           onClick={() => handleEnrollment(course.id)}
                           disabled={enrolling || !currentUser}
-                          className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-4 rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-4 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-purple-500/50"
                         >
                           {enrolling && enrollingCourseId === course.id ? 'Enrolling...' : 'Enroll Now'}
                         </button>
