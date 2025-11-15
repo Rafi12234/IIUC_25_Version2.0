@@ -294,28 +294,28 @@ export default function Chatassistance() {
         style={styles.header}
       >
         <div style={styles.headerIcon}>
-          <Sparkles size={24} style={{ color: '#A855F7' }} />
+          <Sparkles size={26} style={{ color: '#FFFFFF' }} />
         </div>
         <div style={{ flex: 1 }}>
           <h1 style={styles.title}>AI Assistance</h1>
           <p style={styles.subtitle}>Career & Skill Development Assistant</p>
         </div>
         <motion.button
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.05, background: "rgba(239,68,68,0.2)" }}
           whileTap={{ scale: 0.95 }}
           onClick={clearChatHistory}
           title="Clear chat history"
           style={{
-            padding: "8px 12px",
-            background: "rgba(239,68,68,0.1)",
-            border: "1px solid rgba(239,68,68,0.3)",
-            borderRadius: "8px",
+            padding: "10px 16px",
+            background: "rgba(239,68,68,0.15)",
+            border: "1px solid rgba(239,68,68,0.4)",
+            borderRadius: "12px",
             color: "#EF4444",
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
-            gap: "6px",
-            fontSize: "12px",
+            gap: "8px",
+            fontSize: "13px",
             fontWeight: "600",
             transition: "all 0.2s",
           }}
@@ -433,9 +433,9 @@ export default function Chatassistance() {
 
 const styles = {
   container: {
-    maxWidth: "900px",
+    maxWidth: "1000px",
     margin: "0 auto",
-    padding: "24px",
+    padding: "24px 20px",
     fontFamily: "Poppins, Inter, system-ui, sans-serif",
     height: "calc(100vh - 80px)",
     display: "flex",
@@ -447,20 +447,20 @@ const styles = {
     alignItems: "center",
     gap: "16px",
     padding: "20px 24px",
-    background: "rgba(17,21,43,0.6)",
+    background: "linear-gradient(135deg, rgba(26,27,46,0.8) 0%, rgba(19,20,31,0.9) 100%)",
     borderRadius: "16px",
-    border: "1px solid rgba(168,85,247,0.12)",
-    boxShadow: "0 4px 20px rgba(10,8,30,0.4)",
+    border: "1px solid rgba(168,85,247,0.25)",
+    boxShadow: "0 4px 20px rgba(168,85,247,0.12)",
   },
   headerIcon: {
     width: "48px",
     height: "48px",
     borderRadius: "12px",
-    background: "linear-gradient(135deg, #A855F7, #7C3AED)",
+    background: "linear-gradient(135deg, #A855F7, #D500F9)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    boxShadow: "0 0 20px rgba(168,85,247,0.3)",
+    boxShadow: "0 0 20px rgba(168,85,247,0.4)",
   },
   title: {
     color: "#FFFFFF",
@@ -473,18 +473,18 @@ const styles = {
     backgroundClip: "text",
   },
   subtitle: {
-    color: "rgba(255,255,255,0.5)",
+    color: "rgba(255,255,255,0.65)",
     margin: 0,
     fontSize: "14px",
-    fontWeight: "400",
+    fontWeight: "500",
   },
   chatBox: {
     flex: 1,
     overflowY: "auto",
     padding: "24px",
-    background: "rgba(17,21,43,0.4)",
+    background: "rgba(17,21,43,0.5)",
     borderRadius: "16px",
-    border: "1px solid rgba(168,85,247,0.08)",
+    border: "1px solid rgba(168,85,247,0.15)",
     minHeight: "400px",
     scrollbarWidth: "thin",
     scrollbarColor: "rgba(168,85,247,0.3) transparent",
@@ -499,8 +499,8 @@ const styles = {
     width: "36px",
     height: "36px",
     borderRadius: "10px",
-    background: "rgba(168,85,247,0.1)",
-    border: "1px solid rgba(168,85,247,0.2)",
+    background: "rgba(168,85,247,0.15)",
+    border: "1px solid rgba(168,85,247,0.25)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -510,7 +510,7 @@ const styles = {
     width: "36px",
     height: "36px",
     borderRadius: "10px",
-    background: "linear-gradient(135deg, #A855F7, #7C3AED)",
+    background: "linear-gradient(135deg, #A855F7, #D500F9)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -523,19 +523,19 @@ const styles = {
     borderRadius: "16px",
     wordWrap: "break-word",
     whiteSpace: "pre-wrap",
-    lineHeight: "1.5",
-    fontSize: "15px",
+    lineHeight: "1.6",
+    fontSize: "14px",
   },
   userBubble: {
-    background: "linear-gradient(135deg, #A855F7, #7C3AED)",
+    background: "linear-gradient(135deg, #A855F7, #D500F9)",
     color: "#FFFFFF",
     borderBottomRightRadius: "4px",
-    boxShadow: "0 4px 12px rgba(168,85,247,0.2)",
+    boxShadow: "0 4px 12px rgba(168,85,247,0.25)",
   },
   modelBubble: {
-    background: "rgba(255,255,255,0.04)",
-    color: "#FFFFFF",
-    border: "1px solid rgba(168,85,247,0.08)",
+    background: "rgba(255,255,255,0.05)",
+    color: "rgba(255,255,255,0.95)",
+    border: "1px solid rgba(168,85,247,0.15)",
     borderBottomLeftRadius: "4px",
   },
   restrictedBubble: {
@@ -580,20 +580,20 @@ const styles = {
     gap: "12px",
     alignItems: "flex-end",
     padding: "16px 20px",
-    background: "rgba(17,21,43,0.6)",
+    background: "rgba(17,21,43,0.7)",
     borderRadius: "16px",
-    border: "1px solid rgba(168,85,247,0.12)",
-    boxShadow: "0 4px 20px rgba(10,8,30,0.4)",
+    border: "1px solid rgba(168,85,247,0.2)",
+    boxShadow: "0 4px 20px rgba(10,8,30,0.3)",
   },
   textarea: {
     flex: 1,
     padding: "12px 16px",
     borderRadius: "12px",
-    border: "1px solid rgba(168,85,247,0.15)",
-    fontSize: "15px",
+    border: "1px solid rgba(168,85,247,0.2)",
+    fontSize: "14px",
     fontFamily: "Poppins, Inter, system-ui, sans-serif",
     resize: "none",
-    background: "rgba(255,255,255,0.04)",
+    background: "rgba(255,255,255,0.05)",
     color: "#FFFFFF",
     outline: "none",
     transition: "border-color 0.2s, box-shadow 0.2s",
@@ -602,7 +602,7 @@ const styles = {
   },
   button: {
     padding: "12px 16px",
-    background: "linear-gradient(135deg, #A855F7, #7C3AED)",
+    background: "linear-gradient(135deg, #A855F7, #D500F9)",
     color: "#FFFFFF",
     border: "none",
     borderRadius: "12px",
