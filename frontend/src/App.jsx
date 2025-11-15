@@ -11,6 +11,7 @@ import { AuthProvider } from './contexts/AuthContext';
 // Components (loaded immediately as they're needed on every page)
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import FloatingAIButton from "./components/FloatingAIButton";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProtectedRoute from "./components/AdminProtectedRoute";
 
@@ -86,6 +87,8 @@ function AppContent() {
       </div>
       {/* Show footer only for non-admin routes */}
       {!isAdminRoute && <Footer />}
+      {/* Floating AI Assistant Button - Show on all pages */}
+      <FloatingAIButton />
       <Toaster position="top-right" />
     </div>
   );
