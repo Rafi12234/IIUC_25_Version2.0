@@ -174,52 +174,28 @@ export default function Chatassistance() {
   // Check if message is related to allowed topics
   const isTopicRelevant = (message) => {
     const lowerMessage = message.toLowerCase();
-    
-    // Reject if it's asking about general knowledge (capital, geography, history, etc.)
-    const blockedPatterns = [
-      /what is the capital of/i,
-      /what is the (largest|smallest|highest|lowest)/i,
-      /tell me about the history of/i,
-      /where is /i,
-      /when was /i,
-      /who (is|was) /i,
-      /calculate|math|equation|formula/i,
-      /recipe|cook|food|restaurant/i,
-      /movie|song|music|actor|celebrity|film/i,
-      /sports|game|football|cricket|sport|team/i,
-      /weather|climate|temperature/i,
-      /joke|funny|laugh|comic/i,
-      /love|relationship|dating|romantic/i,
-      /politics|government|election/i,
-      /news|current events/i,
-      /covid|pandemic|health (advice|issue)/i,
-      /travel|vacation|tourism/i,
+    const allowedTopics = [
+      // Youth Development
+      "youth", "young professional", "graduate", "entry-level", "internship", "mentor", "development", "growth",
+      // Skill Development
+      "skill", "training", "course", "learning", "education", "certification", "programming", "technical", "soft skills",
+      "communication", "leadership", "problem-solving", "critical thinking", "creativity", "teamwork", "project management",
+      // Job Related
+      "job", "career", "employment", "resume", "cv", "interview", "application", "recruitment", "hiring", "salary",
+      "position", "role", "responsibility", "company", "employer", "workplace", "promotion", "advancement", "salary",
+      "experience", "qualification", "skillset", "portfolio", "networking", "recruiter", "hr", "human resources",
+      // General Career/Development
+      "roadmap", "path", "opportunity", "goal", "objective", "plan", "strategy", "guidance", "advice", "help",
+      "learn", "improve", "enhance", "develop", "build", "strengthen", "excel", "succeed", "industry", "field",
+      "domain", "sector", "market", "trend", "future", "prospect", "opportunity", "professional", "career growth"
     ];
 
-    // Check if message matches any blocked patterns
-    const isBlocked = blockedPatterns.some(pattern => pattern.test(lowerMessage));
-    if (isBlocked) return false;
-
-    // Check if it has career-related context words
-    const careerContexts = [
-      "job", "career", "skill", "learn", "develop", "interview", "resume", "cv", "salary",
-      "hire", "recruit", "work", "employ", "profession", "role", "position", "experience",
-      "training", "course", "mentor", "guidance", "help", "advice", "improve", "enhance",
-      "roadmap", "path", "growth", "advance", "opportunity", "how to", "tips for", "ways to",
-      "best way", "what skills", "which course", "how can i", "can i", "should i", "need to",
-      "prepare", "boost", "strengthen", "excel", "succeed", "professional", "employment"
-    ];
-
-    const words = lowerMessage.replace(/[.,!?;:]/g, '').split(/\s+/);
-    const hasCareerContext = words.some(word => 
-      careerContexts.some(context => word.includes(context) || context.includes(word))
+    // Check if any allowed topic is in the message
+    const hasRelevantTopic = allowedTopics.some(topic => 
+      lowerMessage.includes(topic.toLowerCase())
     );
 
-    // If no career context, reject it
-    if (!hasCareerContext) return false;
-
-    // Must have career context to proceed
-    return true;
+    return hasRelevantTopic;
   };
 
   const sendMessage = async () => {
@@ -235,8 +211,9 @@ export default function Chatassistance() {
         { role: "user", content: userMessage },
         { 
           role: "model", 
-          content: "I appreciate your question, but I'm specifically designed to help with youth development, skill development, job opportunities, and career guidance. Could you please ask a question related to these topics? I'm here to help you with career advice, skill-building, job search strategies, or professional growth! 🎯",
-          isRestricted: true 
+          content: "⚠️ Please include at least one relevant keyword from the list below in your question. Your message must contain words like: job, career, skill, interview, resume, training, learning, development, guidance, opportunity, etc. These keywords help me understand your career-related query better! 🎯",
+          isRestricted: true,
+          showKeywords: true
         }
       ];
       setMessages(prev => [...prev, ...restrictedMessages]);
@@ -380,7 +357,18 @@ export default function Chatassistance() {
                     <span>Out of Scope</span>
                   </div>
                 )}
-                {msg.content}
+                <p style={{ margin: "0 0 12px 0", lineHeight: "1.5" }}>{msg.content}</p>
+                
+                {msg.showKeywords && (
+                  <div style={styles.keywordsContainer}>
+                    <p style={{ margin: "12px 0 8px 0", fontSize: "13px", fontWeight: "600", color: "#FCD34D" }}>📌 Relevant Keywords:</p>
+                    <div style={styles.keywordsGrid}>
+                      {["youth", "graduate", "internship", "skill", "training", "course", "learning", "certification", "job", "career", "employment", "resume", "cv", "interview", "application", "recruitment", "hiring", "salary", "position", "role", "experience", "portfolio", "networking", "recruiter", "hr", "roadmap", "path", "opportunity", "goal", "strategy", "guidance", "advice", "help", "develop", "enhance", "excel", "succeed", "professional"].map((keyword, i) => (
+                        <span key={i} style={styles.keyword}>{keyword}</span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               {msg.role === "user" && (
                 <div style={styles.avatarUser}>
@@ -628,5 +616,30 @@ const styles = {
     transition: "all 0.2s",
     height: "44px",
     width: "44px",
+  },
+  keywordsContainer: {
+    marginTop: "12px",
+    paddingTop: "12px",
+    borderTop: "1px solid rgba(251,146,60,0.3)",
+    background: "rgba(251,146,60,0.05)",
+    borderRadius: "8px",
+    padding: "12px",
+  },
+  keywordsGrid: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "8px",
+    marginTop: "8px",
+  },
+  keyword: {
+    display: "inline-block",
+    padding: "6px 12px",
+    background: "rgba(251,146,60,0.2)",
+    border: "1px solid rgba(251,146,60,0.4)",
+    borderRadius: "6px",
+    fontSize: "12px",
+    fontWeight: "500",
+    color: "#FCD34D",
+    whiteSpace: "nowrap",
   },
 };
