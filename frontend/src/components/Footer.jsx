@@ -15,6 +15,7 @@ const Footer = () => {
       { label: 'Jobs', to: '/jobs' },
       { label: 'Resources', to: '/resources' },
       { label: 'Contact', to: '/contact' },
+      { label: 'Stratify', to: 'https://stratifyai-gray.vercel.app/', external: true },
     ],
     support: [
       { label: 'Help Center', to: '#' },
@@ -67,12 +68,23 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.platform.map((link) => (
                 <li key={link.label}>
-                  <Link
-                    to={link.to}
-                    className="text-muted hover:text-primary transition-colors text-sm"
-                  >
-                    {link.label}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.to}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted hover:text-primary transition-colors text-sm"
+                    >
+                      {link.label}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.to}
+                      className="text-muted hover:text-primary transition-colors text-sm"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
