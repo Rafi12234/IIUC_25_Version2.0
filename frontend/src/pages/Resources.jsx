@@ -374,13 +374,21 @@ const CourseResources = () => {
                           {unenrolling && unenrollingCourseId === course.id ? 'Unenrolling...' : 'Unenroll'}
                         </button>
                       ) : (
-                        <button
-                          onClick={() => handleEnrollment(course.id)}
-                          disabled={enrolling || !currentUser}
-                          className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-4 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-purple-500/50"
-                        >
-                          {enrolling && enrollingCourseId === course.id ? 'Enrolling...' : 'Enroll Now'}
-                        </button>
+                        <div className="flex-1 relative group">
+                          <button
+                            onClick={() => handleEnrollment(course.id)}
+                            disabled={enrolling || !currentUser}
+                            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-4 rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all font-bold disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-purple-500/50"
+                          >
+                            {enrolling && enrollingCourseId === course.id ? 'Enrolling...' : 'Enroll Now'}
+                          </button>
+                          {!currentUser && (
+                            <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-sm py-2 px-4 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap shadow-xl z-10">
+                              Login required to enroll
+                              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></div>
+                            </div>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>

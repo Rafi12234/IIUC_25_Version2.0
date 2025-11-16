@@ -110,11 +110,11 @@ const Login = () => {
             <Link to="/" className="flex items-center justify-center space-x-2 group">
               <div className="relative">
                 <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg" style={{background:'linear-gradient(90deg,#6A00F5,#D500F9)'}}>
-                  <span className="text-white font-bold text-xl">প</span>
+                  <span className="text-white font-bold text-xl">C</span>
                 </div>
               </div>
-              <span className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent glow-text" style={{backgroundImage:'linear-gradient(90deg,#A855F7,#D500F9)'}}>
-                পথচলা
+              <span className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent" style={{backgroundImage:'linear-gradient(90deg,#A855F7,#D500F9)'}}>
+                CareerPath
               </span>
             </Link>
           </motion.div>
