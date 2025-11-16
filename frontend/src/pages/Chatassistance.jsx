@@ -237,7 +237,7 @@ export default function Chatassistance() {
       }));
 
       // Call backend API
-      const apiUrl = import.meta.env.VITE_API_URL || "https://backendcareerpath.vercel.app";
+      const apiUrl = (import.meta.env.VITE_API_URL || "https://backendcareerpath.vercel.app").replace(/\/+$/, "");
       const res = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
