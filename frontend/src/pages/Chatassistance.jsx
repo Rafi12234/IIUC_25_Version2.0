@@ -230,30 +230,43 @@ export default function Chatassistance() {
     setLoading(true);
 
     try {
-      // Build history (excluding the current user message)
+      // Build history for Gemini API
       const history = messages.map(m => ({
-        role: m.role,
-        content: m.content,
+        role: m.role === "model" ? "model" : "user",
+        parts: [{ text: m.content }],
       }));
 
-      // Call backend
-      const res = await fetch("http://localhost:8000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: userMessage,
-          history,
-        }),
-      });
+      // Call Gemini API directly
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${import.meta.env.VITE_GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [
+              ...history,
+              {
+                role: "user",
+                parts: [{ text: userMessage }],
+              },
+            ],
+            generationConfig: {
+              temperature: 0.7,
+              maxOutputTokens: 1024,
+            },
+          }),
+        }
+      );
 
       if (!res.ok) {
-        throw new Error(`Server error: ${res.status}`);
+        throw new Error(`API error: ${res.status}`);
       }
 
       const data = await res.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
 
       // Add bot response
-      const updatedMessages = [...newMessages, { role: "model", content: data.reply }];
+      const updatedMessages = [...newMessages, { role: "model", content: reply }];
       setMessages(updatedMessages);
 
       // Save to Firebase
