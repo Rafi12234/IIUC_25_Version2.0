@@ -104,7 +104,8 @@ Keep it SHORT and concise.`;
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const res = await fetch("http://localhost:8000/summarize-cv", {
+      const apiUrl = (import.meta.env.VITE_API_URL || "https://backendcareerpath.vercel.app").replace(/\/+$/, "");
+      const res = await fetch(`${apiUrl}/summarize-cv`, {
         method: "POST",
         body: formData,
       });
