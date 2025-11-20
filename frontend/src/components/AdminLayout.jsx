@@ -117,7 +117,7 @@ const AdminLayout = ({ children }) => {
           <Link to="/" className="flex items-center space-x-3 group">
             <div className="relative">
               <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(90deg,#6A00F5,#D500F9)' }}>
-                <span className="text-white font-bold text-lg">প</span>
+                <span className="text-white font-bold text-lg">C</span>
               </div>
               <div className="absolute -inset-1 bg-gradient-to-r rounded-xl blur opacity-30 group-hover:opacity-60 transition-opacity" style={{ background: 'linear-gradient(90deg,#A855F7,#D500F9)' }}></div>
             </div>

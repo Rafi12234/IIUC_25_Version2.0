@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fb923c;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f97316;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="100" height="100" rx="20" fill="url(#grad)"/>
+  <!-- Person climbing stairs with briefcase -->
+  <g transform="translate(20, 15)">
+    <!-- Head -->
+    <circle cx="30" cy="12" r="8" fill="white"/>
+    <!-- Body -->
+    <path d="M 30 20 L 30 38" stroke="white" stroke-width="5" stroke-linecap="round"/>
+    <!-- Left arm with briefcase -->
+    <path d="M 30 25 L 18 30" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    <rect x="10" y="28" width="10" height="8" rx="1" fill="white"/>
+    <line x1="13" y1="28" x2="17" y2="28" stroke="#fb923c" stroke-width="1"/>
+    <!-- Right arm -->
+    <path d="M 30 25 L 42 22" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    <!-- Left leg -->
+    <path d="M 30 38 L 22 52" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    <!-- Right leg climbing -->
+    <path d="M 30 38 L 38 48" stroke="white" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Stairs -->
+    <rect x="32" y="50" width="16" height="3" fill="white"/>
+    <rect x="38" y="42" width="16" height="3" fill="white"/>
+    <rect x="44" y="34" width="16" height="3" fill="white"/>
+  </g>
+</svg>

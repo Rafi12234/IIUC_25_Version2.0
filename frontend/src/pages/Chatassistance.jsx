@@ -5,6 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 import { db } from "../firebase";
 import { collection, doc, setDoc, getDoc, updateDoc, arrayUnion, serverTimestamp } from "firebase/firestore";
 import toast from "react-hot-toast";
+import ReactMarkdown from "react-markdown";
 
 export default function Chatassistance() {
   const { currentUser } = useAuth();
@@ -51,14 +52,14 @@ export default function Chatassistance() {
   // Save messages to Firebase
   const saveChatHistory = async (messagesToSave) => {
     if (!currentUser) return;
-    
+
     try {
       setIsSaving(true);
       const chatDocRef = doc(db, "users", currentUser.uid, "chatHistory", "conversations");
-      
+
       // Check if document exists
       const docSnap = await getDoc(chatDocRef);
-      
+
       if (docSnap.exists()) {
         // Update existing document with new messages
         await updateDoc(chatDocRef, {
@@ -85,11 +86,11 @@ export default function Chatassistance() {
   // Load chat history from Firebase
   const loadChatHistory = async () => {
     if (!currentUser) return;
-    
+
     try {
       const chatDocRef = doc(db, "users", currentUser.uid, "chatHistory", "conversations");
       const docSnap = await getDoc(chatDocRef);
-      
+
       if (docSnap.exists()) {
         const data = docSnap.data();
         // Keep the initial greeting and add saved messages (skip the default greeting if it exists)
@@ -112,7 +113,7 @@ export default function Chatassistance() {
   // Clear chat history
   const clearChatHistory = async () => {
     if (!currentUser) return;
-    
+
     if (!window.confirm("Are you sure you want to clear all chat history?")) {
       return;
     }
@@ -125,7 +126,7 @@ export default function Chatassistance() {
         createdAt: serverTimestamp(),
         lastUpdated: serverTimestamp(),
       });
-      
+
       // Reset messages to initial state
       setMessages([
         { role: "model", content: "Hi! I'm a Gemini-powered chatbot. I'm here to help you with questions about youth development, skill development, job opportunities, and career guidance. How can I assist you?" }
@@ -191,7 +192,7 @@ export default function Chatassistance() {
     ];
 
     // Check if any allowed topic is in the message
-    const hasRelevantTopic = allowedTopics.some(topic => 
+    const hasRelevantTopic = allowedTopics.some(topic =>
       lowerMessage.includes(topic.toLowerCase())
     );
 
@@ -209,8 +210,8 @@ export default function Chatassistance() {
     if (!isTopicRelevant(userMessage)) {
       const restrictedMessages = [
         { role: "user", content: userMessage },
-        { 
-          role: "model", 
+        {
+          role: "model",
           content: "⚠️ Please include at least one relevant keyword from the list below in your question. Your message must contain words like: job, career, skill, interview, resume, training, learning, development, guidance, opportunity, etc. These keywords help me understand your career-related query better! 🎯",
           isRestricted: true,
           showKeywords: true
@@ -236,8 +237,9 @@ export default function Chatassistance() {
         content: m.content,
       }));
 
-      // Call backend
-      const res = await fetch("http://localhost:8000/chat", {
+      // Call backend API
+      const apiUrl = (import.meta.env.VITE_API_URL || "https://backendcareerpath.vercel.app").replace(/\/+$/, "");
+      const res = await fetch(`${apiUrl}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -251,11 +253,12 @@ export default function Chatassistance() {
       }
 
       const data = await res.json();
-      
+      const reply = data.reply;
+
       // Add bot response
-      const updatedMessages = [...newMessages, { role: "model", content: data.reply }];
+      const updatedMessages = [...newMessages, { role: "model", content: reply }];
       setMessages(updatedMessages);
-      
+
       // Save to Firebase
       if (currentUser) {
         await saveChatHistory(updatedMessages);
@@ -268,7 +271,7 @@ export default function Chatassistance() {
         { role: "model", content: "Sorry, something went wrong talking to the server. Please try again." }
       ];
       setMessages(errorMessages);
-      
+
       // Save error state to Firebase
       if (currentUser) {
         await saveChatHistory(errorMessages);
@@ -288,7 +291,7 @@ export default function Chatassistance() {
   return (
     <div style={styles.container}>
       {/* Header */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         style={styles.header}
@@ -353,12 +356,26 @@ export default function Chatassistance() {
               >
                 {msg.isRestricted && (
                   <div style={styles.restrictionWarning}>
-                    <AlertCircle size={16} />
-                    <span>Out of Scope</span>
+                    <AlertCircle size={16} style={{flexShrink: 0}} />
+                    <span style={{flex: 1}}>Out of Scope</span>
                   </div>
                 )}
-                <p style={{ margin: "0 0 12px 0", lineHeight: "1.5" }}>{msg.content}</p>
-                
+                <div style={{ margin: "0 0 12px 0", lineHeight: "1.5", wordBreak: "break-word", overflowWrap: "break-word" }}>
+                  <ReactMarkdown
+                    components={{
+                      p: ({node, ...props}) => <p style={{ margin: "8px 0" }} {...props} />,
+                      ul: ({node, ...props}) => <ul style={{ margin: "8px 0", paddingLeft: "20px" }} {...props} />,
+                      ol: ({node, ...props}) => <ol style={{ margin: "8px 0", paddingLeft: "20px" }} {...props} />,
+                      li: ({node, ...props}) => <li style={{ margin: "4px 0" }} {...props} />,
+                      strong: ({node, ...props}) => <strong style={{ fontWeight: "600", color: msg.role === "user" ? "#FFFFFF" : "#FCD34D" }} {...props} />,
+                      em: ({node, ...props}) => <em style={{ fontStyle: "italic" }} {...props} />,
+                      code: ({node, inline, ...props}) => inline ? <code style={{ backgroundColor: "rgba(0,0,0,0.2)", padding: "2px 6px", borderRadius: "4px", fontSize: "0.9em" }} {...props} /> : <code {...props} />,
+                    }}
+                  >
+                    {msg.content}
+                  </ReactMarkdown>
+                </div>
+
                 {msg.showKeywords && (
                   <div style={styles.keywordsContainer}>
                     <p style={{ margin: "12px 0 8px 0", fontSize: "13px", fontWeight: "600", color: "#FCD34D" }}>📌 Relevant Keywords:</p>
@@ -379,7 +396,7 @@ export default function Chatassistance() {
           ))}
         </AnimatePresence>
         {loading && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             style={{ ...styles.messageRow, justifyContent: "flex-start" }}
@@ -388,16 +405,16 @@ export default function Chatassistance() {
               <Bot size={18} style={{ color: '#A855F7' }} />
             </div>
             <div style={{ ...styles.messageBubble, ...styles.modelBubble, ...styles.typingIndicator }}>
-              <span style={{...styles.dot, animationDelay: '0s'}}></span>
-              <span style={{...styles.dot, animationDelay: '0.2s'}}></span>
-              <span style={{...styles.dot, animationDelay: '0.4s'}}></span>
+              <span style={{ ...styles.dot, animationDelay: '0s' }}></span>
+              <span style={{ ...styles.dot, animationDelay: '0.2s' }}></span>
+              <span style={{ ...styles.dot, animationDelay: '0.4s' }}></span>
             </div>
           </motion.div>
         )}
       </div>
 
       {/* Input Area */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         style={styles.inputArea}
@@ -412,15 +429,15 @@ export default function Chatassistance() {
             rows={1}
             disabled={loading}
           />
-          <motion.button 
+          <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={sendMessage} 
+            onClick={sendMessage}
             style={{
               ...styles.button,
               opacity: loading || !input.trim() ? 0.5 : 1,
               cursor: loading || !input.trim() ? 'not-allowed' : 'pointer'
-            }} 
+            }}
             disabled={loading || !input.trim()}
           >
             <Send size={20} />
@@ -433,7 +450,8 @@ export default function Chatassistance() {
 
 const styles = {
   container: {
-    maxWidth: "1000px",
+    maxWidth: "1200px",
+    width: "100%",
     margin: "0 auto",
     padding: "24px 20px",
     fontFamily: "Poppins, Inter, system-ui, sans-serif",
@@ -445,12 +463,13 @@ const styles = {
   header: {
     display: "flex",
     alignItems: "center",
-    gap: "16px",
-    padding: "20px 24px",
+    gap: "12px",
+    padding: "16px",
     background: "linear-gradient(135deg, rgba(26,27,46,0.8) 0%, rgba(19,20,31,0.9) 100%)",
     borderRadius: "16px",
     border: "1px solid rgba(168,85,247,0.25)",
     boxShadow: "0 4px 20px rgba(168,85,247,0.12)",
+    flexWrap: "wrap",
   },
   headerIcon: {
     width: "48px",
@@ -465,17 +484,19 @@ const styles = {
   title: {
     color: "#FFFFFF",
     margin: 0,
-    fontSize: "24px",
+    fontSize: "clamp(18px, 4vw, 24px)",
     fontWeight: "700",
     background: "linear-gradient(90deg, #A855F7, #D500F9)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     backgroundClip: "text",
+    wordBreak: "break-word",
   },
   subtitle: {
     color: "rgba(255,255,255,0.65)",
+    fontSize: "clamp(12px, 2.5vw, 14px)",
+    wordBreak: "break-word",
     margin: 0,
-    fontSize: "14px",
     fontWeight: "500",
   },
   chatBox: {
@@ -518,7 +539,7 @@ const styles = {
     boxShadow: "0 0 15px rgba(168,85,247,0.3)",
   },
   messageBubble: {
-    maxWidth: "70%",
+    maxWidth: "min(70%, 800px)",
     padding: "14px 18px",
     borderRadius: "16px",
     wordWrap: "break-word",
@@ -547,7 +568,6 @@ const styles = {
     display: "flex",
     alignItems: "center",
     gap: "8px",
-    marginBottom: "8px",
     padding: "8px 12px",
     background: "rgba(251,146,60,0.2)",
     borderRadius: "8px",
@@ -557,6 +577,8 @@ const styles = {
     borderBottom: "1px solid rgba(251,146,60,0.3)",
     paddingBottom: "12px",
     marginBottom: "12px",
+    wordWrap: "break-word",
+    overflowWrap: "break-word",
   },
   typingIndicator: {
     display: "flex",
@@ -599,6 +621,9 @@ const styles = {
     transition: "border-color 0.2s, box-shadow 0.2s",
     maxHeight: "120px",
     minHeight: "44px",
+    wordWrap: "break-word",
+    overflowWrap: "break-word",
+    whiteSpace: "pre-wrap",
   },
   button: {
     padding: "12px 16px",
@@ -624,22 +649,26 @@ const styles = {
     background: "rgba(251,146,60,0.05)",
     borderRadius: "8px",
     padding: "12px",
+    maxWidth: "100%",
+    overflow: "hidden",
   },
   keywordsGrid: {
     display: "flex",
     flexWrap: "wrap",
-    gap: "8px",
+    gap: "6px",
     marginTop: "8px",
+    maxWidth: "100%",
   },
   keyword: {
     display: "inline-block",
-    padding: "6px 12px",
+    padding: "4px 10px",
     background: "rgba(251,146,60,0.2)",
     border: "1px solid rgba(251,146,60,0.4)",
     borderRadius: "6px",
-    fontSize: "12px",
+    fontSize: "11px",
     fontWeight: "500",
     color: "#FCD34D",
     whiteSpace: "nowrap",
+    flexShrink: 0,
   },
 };

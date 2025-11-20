@@ -122,11 +122,11 @@ const Home = () => {
                 className="relative"
               >
                 <div className="relative aspect-square max-w-lg mx-auto">
-                  {/* Placeholder illustration */}
+                  {/* Tech career illustration */}
                   <img
-                    src="https://picsum.photos/600/600?random=1"
+                    src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=600&h=600&fit=crop&q=80"
                     alt="Career growth illustration"
-                    className="rounded-2xl shadow-lift"
+                    className="rounded-2xl shadow-lift object-cover w-full h-full"
                   />
                   
                   {/* Floating card 1 */}

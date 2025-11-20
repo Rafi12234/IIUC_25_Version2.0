@@ -104,7 +104,8 @@ Keep it SHORT and concise.`;
       const formData = new FormData();
       formData.append("file", selectedFile);
 
-      const res = await fetch("http://localhost:8000/summarize-cv", {
+      const apiUrl = (import.meta.env.VITE_API_URL || "https://backendcareerpath.vercel.app").replace(/\/+$/, "");
+      const res = await fetch(`${apiUrl}/summarize-cv`, {
         method: "POST",
         body: formData,
       });
@@ -418,7 +419,6 @@ Keep it SHORT and concise.`;
               </motion.div>
             )}
 
-            {/* Save to Profile Button */}
             <motion.button
               whileHover={{ scale: 1.02, boxShadow: '0 8px 24px rgba(168,85,247,0.4)' }}
               whileTap={{ scale: 0.98 }}
@@ -427,6 +427,7 @@ Keep it SHORT and concise.`;
               style={{
                 ...styles.saveButton,
                 ...(saving && styles.saveButtonDisabled),
+                marginTop: "2rem",
               }}
             >
               <div style={styles.saveButtonContent}>

@@ -146,12 +146,12 @@ const AdminLogin = () => {
           <Link to="/" className="flex items-center justify-center space-x-2 group">
             <div className="relative">
               <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg transition-shadow duration-300" style={{background:'linear-gradient(90deg,#6A00F5,#D500F9)',boxShadow:'0 0 20px rgba(168,85,247,0.2)'}}>
-                <span className="text-white font-bold text-xl">প</span>
+                <span className="text-white font-bold text-xl">C</span>
               </div>
               <div className="absolute -inset-1 bg-gradient-to-r rounded-xl blur opacity-40 group-hover:opacity-70 transition-opacity" style={{background:'linear-gradient(90deg,#A855F7,#D500F9)'}}></div>
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r bg-clip-text text-transparent glow-text" style={{backgroundImage:'linear-gradient(90deg,#A855F7,#D500F9)'}}>
-              পথচলা
+              CareerPath
             </span>
           </Link>
         </motion.div>

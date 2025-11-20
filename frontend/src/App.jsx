@@ -26,7 +26,7 @@ const Login = lazy(() => import("./pages/Login"));
 const Register = lazy(() => import("./pages/Register"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Chatassistance = lazy(() => import("./pages/chatassistance"));
+const Chatassistance = lazy(() => import("./pages/Chatassistance"));
 const CareerRoadmap = lazy(() => import("./pages/CareerRoadmap"));
 const CvUpload = lazy(() => import("./pages/CvUpload"));
 const AdminPanel = lazy(() => import("./pages/AdminPanel"));
